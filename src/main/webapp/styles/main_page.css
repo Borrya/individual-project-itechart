@@ -1,0 +1,111 @@
+body {
+    display: grid;
+    grid-template-areas: "header header header" "nav article ads" "footer footer footer";
+    grid-template-rows: 90px 1fr 10px;
+    grid-template-columns: 20% 1fr 10%;
+    grid-gap: 10px;
+    height: 100vh;
+    margin: 0;
+}
+
+article, nav,div {
+    padding: 20px;
+    background: #a7846e;
+}
+
+header{
+    padding: 30px;
+}
+
+footer {
+    padding: 20px;
+}
+
+#pageHeader {
+    grid-area: header;
+    text-align: center;
+    background: #dfb798 url(../images/library2.jpg);
+}
+
+h1{
+    font-family: "Impact";
+    margin: 0px;
+    text-shadow:
+            -4px -4px rgb(58, 38, 25),
+            0 2px 0 #8d633c;
+    color: white;
+    transition: all 1s;
+}
+
+h2, h3, h4{
+    font-family: Calibri;
+    text-align: center;
+}
+
+a{
+    color: #1d2124;
+}
+
+#pageFooter {
+    grid-area: footer;
+    text-align: center;
+    background: #dfb798 url(../images/library2.jpg);
+}
+
+#mainArticle {
+    grid-area: article;
+}
+
+table{
+    border-color: #82694d;
+    background: antiquewhite;
+    font-family: Calibri;
+}
+
+.table {
+    text-align: center;
+}
+
+#mainNav {
+    grid-area: nav;
+}
+
+#inner-grid-nav {
+    display: grid;
+    grid-template-rows: 50px 50px 50px;
+    grid-row-gap: 50px;
+}
+
+#inner-grid-nav > div {
+    background: black;
+    padding: 10px;
+}
+
+#siteAds {
+    grid-area: ads;
+}
+
+#inner-grid-ads {
+    display: grid;
+    position: fixed;
+    grid-template-rows: 35px 35px;
+    grid-row-gap: 70px;
+    height: 60px;
+    margin-left: -15px;
+}
+
+#inner-grid-ads > div {
+    padding: 3px;
+    height: 40px;
+    text-align: center;
+    margin-top: 40px;
+    margin-left: -25px;
+}
+
+.btn-light{
+    font-family: serif;
+    font-size: large;
+    border-width: 4px;
+    background-color: antiquewhite;
+    border-color: #c7baa8;
+}
