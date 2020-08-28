@@ -17,43 +17,74 @@
 <body>
     <header id="pageHeader"></header>
     <article id="mainArticle">
-        <h2>Edit book info</h2>
+        <h2>Add book</h2>
         <form>
-            <div class="form-group">
+            <div class="custom-file">
                 <label for="cover">Cover</label>
-                <input type="file" class="form-control-file" id="cover">
+                <input type="file" class="custom-file-input" id="cover">
+                <label class="custom-file-label" for="cover">Choose file</label>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="title">Title*</label>
-                        <input type="text" class="form-control" id="title" placeholder="Title of the book...">
+                        <input type="text" class="form-control" id="title" placeholder="Title of the book..."  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid title.
+                        </div>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="author">Author(-s)*</label>
-                        <input type="text" class="form-control" id="author" placeholder="Author's name...">
+                        <input type="text" class="form-control" id="author" placeholder="Author's name..."  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid author's name.
+                        </div>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="genre">Genre(-s)*</label>
-                        <input type="text" class="form-control" id="genre" placeholder="Genre...">
+                        <input type="text" class="form-control" id="genre" placeholder="Genre..."  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid genre.
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="form-group">
-                        <label for="publisher">Publisher</label>
-                        <input type="text" class="form-control" id="publisher" placeholder="Publisher's name...">
+                        <label for="publisher">Publisher*</label>
+                        <input type="text" class="form-control" id="publisher" placeholder="Publisher's name..."  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid publisher's name.
+                        </div>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="publish_date">Publish Date*</label>
-                        <input type="text" class="form-control" id="publish_date" placeholder="Publish date...">
+                        <input type="text" class="form-control" id="publish_date" placeholder="Publish date..."  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid publish date.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,13 +92,25 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="count">Page count*</label>
-                        <input type="text" class="form-control" id="count" placeholder="Page count...">
+                        <input type="text" class="form-control" id="count" placeholder="Page count..."  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid page count.
+                        </div>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="isbn">ISBN*</label>
-                        <input type="text" class="form-control" id="isbn" placeholder="ISBN...">
+                        <input type="text" class="form-control" id="isbn" placeholder="ISBN..."  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid ISBN.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,14 +124,20 @@
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label for="total_amount">Total Amount*</label>
-                        <input type="text" class="form-control" id="total_amount">
+                        <input type="text" class="form-control" id="total_amount"  required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a valid total amount.
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
         <div id="saveDiscard" style="text-align: center">
             <button type="button" class="btn btn-secondary">Save</button>
-            <button type="button" class="btn btn-secondary">Discard</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
         </div>
     </article>
     <nav id="mainNav">

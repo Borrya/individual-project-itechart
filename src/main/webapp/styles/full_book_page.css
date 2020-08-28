@@ -30,9 +30,13 @@ header {
     padding: 30px;
 }
 
-form{
+#bookForm{
     background-color: #e6cece7d;
     padding: 20px;
+}
+
+table {
+    font-family: Calibri;
 }
 
 footer {

@@ -21,7 +21,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Publish Date</th>
-                <th scope="col">Amount of book copies</th>
+                <th scope="col">Amount of available book copies</th>
             </tr>
             </thead>
             <tbody id="tableBody">
@@ -37,6 +37,12 @@
         <!--<div id='Load_more' >  hidden
             <button type="button" class="btn btn-secondary btn-sm" style="margin-left: 40%">Show more</button>
         </div>-->
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-secondary">1</button>
+                <button type="button" class="btn btn-secondary">2</button>
+            </div>
+        </div>
     </article>
     <nav id="mainNav">
         <h3>Navigation</h3>
@@ -47,7 +53,7 @@
     </nav>
     <div id="siteAds">
         <div id="inner-grid-ads">
-            <h4>Edit book list</h4>
+            <h4>Edit</h4>
             <button type="button" class="btn btn-light" onclick="location.href='/add'" >Add</button>
             <button type="button" class="btn btn-light" onclick="location.href='/remove'" >Remove</button>
         </div>

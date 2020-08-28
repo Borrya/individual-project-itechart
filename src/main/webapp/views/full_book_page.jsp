@@ -11,14 +11,14 @@
     <title>Book Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="styles/book_page.css">
-    <!-- Подключаем Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
 <header id="pageHeader"></header>
 <article id="mainArticle">
-    <button type="button" class="btn btn-light">Edit</button>
-    <form>
+    <h2>Book Info</h2>
+    <button type="button" class="btn btn-light" style="margin-bottom: 11px">Edit</button>
+    <form id="bookForm">
         <div class="form-group">
             <label for="cover">Cover</label>
             <input type="file" class="form-control-file" id="cover">
@@ -93,27 +93,106 @@
         </div>
     </form>
     <h3 id="recordsList">Borrow Records List</h3>
-    <button type="button" class="btn btn-light">Add</button>
-    <table class="table table-hover">
+    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addBorrowRecordModal" style="margin-bottom: 11px">Add</button>
+    <table class="table table-hover" style="background-color: antiquewhite; text-align: center; border-color: #82694d; font-family: Calibri">
         <thead>
         <tr id="tr1">
             <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Publish Date</th>
-            <th scope="col">Amount of book copies</th>
+            <th scope="col">Reader Name</th>
+            <th scope="col">Reader Email Address</th>
+            <th scope="col">Borrow Date</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Return Date</th>
         </tr>
         </thead>
         <tbody id="tableBody">
         <tr>
             <th scope="row">1</th>
-            <td><a style="color: #1d2124" href="/add">11.22.63</a></td>
-            <td>S.King</td>
-            <td>08.11.2011</td>
-            <td>2</td>
+            <td><a style="color: #1d2124" onclick="editBorrowRecord()">Daria</a></td>
+            <td>borrya@org.com</td>
+            <td>08.08.2020</td>
+            <td>1 month</td>
+            <td>08.09.2020</td>
         </tr>
         </tbody>
     </table>
+    <!-- Modal Window for Adding New Record -->
+    <div class="modal fade" id="addBorrowRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLongTitle">Add borrow record</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group col-md-6">
+                            <div class="form-group">
+                                <label for="addEmail">Reader email address*</label>
+                                <input type="email" class="form-control" id="addEmail" placeholder="name@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-group">
+                                <label for="addName">Reader name*</label>
+                                <input type="text" class="form-control" id="addName" placeholder="Reader name.." required>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Time period</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Choose...</option>
+                                <option value="1">1 month</option>
+                                <option value="2">2 months</option>
+                                <option value="3">3 months</option>
+                                <option value="6">6 months</option>
+                                <option value="12">12 months</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Window for Editing New Record -->
+    <div class="modal fade" id="editBorrowRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLongTitle">Edit borrow record</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group col-md-4">
+                            <div class="form-group">
+                                <label for="editName">Reader name*</label>
+                                <input type="text" class="form-control" id="editName" placeholder="Reader name...">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="saveDiscard" style="text-align: center">
+        <button type="button" class="btn btn-secondary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
+    </div>
 </article>
 <nav id="mainNav">
     <h3 id="navTitle">Navigation</h3>
@@ -123,14 +202,12 @@
         <button type="button" class="btn btn-dark">Readers Page</button>
     </div>
 </nav>
-
 <footer id="pageFooter"></footer>
+<script type="text/javascript" src="${pageContext.request.contextPath}/control/full_book_page.js"></script>
 <!-- Подключаем jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <!-- Подключаем плагин Popper -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
 <!-- Подключаем Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous" ></script>
 </body>
