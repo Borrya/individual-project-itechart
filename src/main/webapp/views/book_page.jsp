@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Book Page</title>
+    <link rel="shortcut icon" href="images/shelf.png" type="image/x-icon">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="styles/book_page.css">
     <!-- Подключаем Bootstrap CSS -->
@@ -17,18 +18,18 @@
 <body>
     <header id="pageHeader"></header>
     <article id="mainArticle">
-        <h2>Add book</h2>
+        <h2>Add book info</h2>
         <form>
             <div class="custom-file">
                 <label for="cover">Cover</label>
                 <input type="file" class="custom-file-input" id="cover">
-                <label class="custom-file-label" for="cover">Choose file</label>
+                <label class="custom-file-label" for="cover">Choose file for cover</label>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="title">Title*</label>
-                        <input type="text" class="form-control" id="title" placeholder="Title of the book..."  required>
+                        <input type="text" class="form-control" id="title" placeholder="Pride and Prejudice"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -40,7 +41,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="author">Author(-s)*</label>
-                        <input type="text" class="form-control" id="author" placeholder="Author's name..."  required>
+                        <input type="text" class="form-control" id="author" placeholder="Jane Austen"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -52,7 +53,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="genre">Genre(-s)*</label>
-                        <input type="text" class="form-control" id="genre" placeholder="Genre..."  required>
+                        <input type="text" class="form-control" id="genre" placeholder="Romance novel"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -66,7 +67,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="publisher">Publisher*</label>
-                        <input type="text" class="form-control" id="publisher" placeholder="Publisher's name..."  required>
+                        <input type="text" class="form-control" id="publisher" placeholder="T. Egerton, Whitehall"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -78,7 +79,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="publish_date">Publish Date*</label>
-                        <input type="text" class="form-control" id="publish_date" placeholder="Publish date..."  required>
+                        <input type="date" class="form-control" id="publish_date" placeholder="28.01.1813"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -92,7 +93,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="count">Page count*</label>
-                        <input type="text" class="form-control" id="count" placeholder="Page count..."  required>
+                        <input type="number" class="form-control" id="count" placeholder="350"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -104,7 +105,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="isbn">ISBN*</label>
-                        <input type="text" class="form-control" id="isbn" placeholder="ISBN..."  required>
+                        <input type="number" class="form-control" id="isbn" placeholder="9780141439518"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -124,7 +125,7 @@
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label for="total_amount">Total Amount*</label>
-                        <input type="text" class="form-control" id="total_amount"  required>
+                        <input type="number" class="form-control" id="total_amount"  required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -144,7 +145,6 @@
         <h3 id="navTitle">Navigation</h3>
         <div id="inner-grid-nav">
             <button type="button" class="btn btn-dark" onclick="location.href='/'">Main Page</button>
-            <button type="button" class="btn btn-dark">Search</button>
             <button type="button" class="btn btn-dark">Readers Page</button>
         </div>
     </nav>

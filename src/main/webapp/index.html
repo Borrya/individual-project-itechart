@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Book Library</title>
+    <link rel="shortcut icon" href="images/shelf.png" type="image/x-icon">
     <link rel="stylesheet" href="styles/main_page.css">
     <!-- Подключаем Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -34,20 +35,63 @@
             </tr>
             </tbody>
         </table>
-        <!--<div id='Load_more' >  hidden
-            <button type="button" class="btn btn-secondary btn-sm" style="margin-left: 40%">Show more</button>
-        </div>-->
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="float: right">
             <div class="btn-group mr-2" role="group" aria-label="First group">
                 <button type="button" class="btn btn-secondary">1</button>
                 <button type="button" class="btn btn-secondary">2</button>
+            </div>
+        </div>
+        <!-- Search Modal Window -->
+        <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLongTitle">Search filter</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group col-md-6" style="max-width: 100%">
+                                <div class="form-group">
+                                    <label for="addEmail">Reader email address*</label>
+                                    <input type="email" class="form-control" id="addEmail" placeholder="name@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6" style="max-width: 100%">
+                                <div class="form-group">
+                                    <label for="addName">Reader name*</label>
+                                    <input type="text" class="form-control" id="addName" placeholder="John" required>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Time period</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01">
+                                    <option selected>Choose...</option>
+                                    <option value="1">1 month</option>
+                                    <option value="2">2 months</option>
+                                    <option value="3">3 months</option>
+                                    <option value="6">6 months</option>
+                                    <option value="12">12 months</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                        <button type="button" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
             </div>
         </div>
     </article>
     <nav id="mainNav">
         <h3>Navigation</h3>
         <div id="inner-grid-nav">
-            <button type="button" class="btn btn-dark">Search</button>
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#search">Search</button>
             <button type="button" class="btn btn-dark">Readers Page</button>
         </div>
     </nav>

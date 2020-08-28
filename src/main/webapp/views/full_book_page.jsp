@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Book Page</title>
+    <link rel="shortcut icon" href="images/shelf.png" type="image/x-icon">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="styles/book_page.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -16,12 +17,13 @@
 <body>
 <header id="pageHeader"></header>
 <article id="mainArticle">
-    <h2>Book Info</h2>
+    <h3>Book Info</h3>
     <button type="button" class="btn btn-light" style="margin-bottom: 11px">Edit</button>
     <form id="bookForm">
-        <div class="form-group">
+        <div class="custom-file">
             <label for="cover">Cover</label>
-            <input type="file" class="form-control-file" id="cover">
+            <input type="file" class="custom-file-input" id="cover">
+            <label class="custom-file-label" for="cover">Choose file for cover</label>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -53,7 +55,7 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="publish_date">Publish Date*</label>
-                    <input type="text" class="form-control" id="publish_date" placeholder="Publish date...">
+                    <input type="date" class="form-control" id="publish_date" placeholder="01.01.1999">
                 </div>
             </div>
         </div>
@@ -61,13 +63,13 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="count">Page count*</label>
-                    <input type="text" class="form-control" id="count" placeholder="Page count...">
+                    <input type="number" class="form-control" id="count" placeholder="Page count...">
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="isbn">ISBN*</label>
-                    <input type="text" class="form-control" id="isbn" placeholder="ISBN...">
+                    <input type="number" class="form-control" id="isbn" placeholder="ISBN...">
                 </div>
             </div>
         </div>
@@ -81,7 +83,7 @@
             <div class="form-group col-md-2">
                 <div class="form-group">
                     <label for="total_amount">Total Amount*</label>
-                    <input type="text" class="form-control" id="total_amount">
+                    <input type="number" class="form-control" id="total_amount">
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -108,7 +110,7 @@
         <tbody id="tableBody">
         <tr>
             <th scope="row">1</th>
-            <td><a style="color: #1d2124" onclick="editBorrowRecord()">Daria</a></td>
+            <td><button type="button" class="btn btn-link" style="color: #212529" data-toggle="modal" data-target="#editBorrowRecordModal">Daria</button>
             <td>borrya@org.com</td>
             <td>08.08.2020</td>
             <td>1 month</td>
@@ -128,16 +130,16 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" style="max-width: 100%">
                             <div class="form-group">
                                 <label for="addEmail">Reader email address*</label>
                                 <input type="email" class="form-control" id="addEmail" placeholder="name@example.com" required>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" style="max-width: 100%">
                             <div class="form-group">
                                 <label for="addName">Reader name*</label>
-                                <input type="text" class="form-control" id="addName" placeholder="Reader name.." required>
+                                <input type="text" class="form-control" id="addName" placeholder="John" required>
                             </div>
                         </div>
                         <div class="input-group mb-3">
@@ -174,10 +176,43 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6" style="max-width: 100%">
                             <div class="form-group">
-                                <label for="editName">Reader name*</label>
-                                <input type="text" class="form-control" id="editName" placeholder="Reader name...">
+                                <label for="editEmail">Reader email address</label>
+                                <input type="email" class="form-control" id="editEmail" placeholder="name@example.com" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6" style="max-width: 100%">
+                            <div class="form-group">
+                                <label for="editName">Reader name</label>
+                                <input type="text" class="form-control" id="editName" placeholder="John" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4" style="max-width: 100%">
+                            <div class="form-group">
+                                <label for="borrowDate">Borrow Date</label>
+                                <input type="number" class="form-control" id="borrowDate" placeholder="01.01.1999" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4" style="max-width: 100%">
+                            <div class="form-group">
+                                <label for="timePeriod">Time Period</label>
+                                <input type="number" class="form-control" id="timePeriod" placeholder="1 month" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4" style="max-width: 100%">
+                            <label for="status">Status</label>
+                            <select id="status" class="form-control" required>
+                                <option selected>Choose...</option>
+                                <option>Returned</option>
+                                <option>Returned and Damaged</option>
+                                <option>Lost</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6" style="max-width: 100%">
+                            <div class="form-group">
+                                <label for="comment">Comment</label>
+                                <textarea class="form-control" id="comment" rows="2"></textarea>
                             </div>
                         </div>
                     </form>
@@ -198,7 +233,6 @@
     <h3 id="navTitle">Navigation</h3>
     <div id="inner-grid-nav">
         <button type="button" class="btn btn-dark" onclick="location.href='/'">Main Page</button>
-        <button type="button" class="btn btn-dark">Search</button>
         <button type="button" class="btn btn-dark">Readers Page</button>
     </div>
 </nav>

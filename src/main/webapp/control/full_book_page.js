@@ -1,4 +1,4 @@
 function editBorrowRecord() {
-    document.getElementById("editBorrowRecordModal").setAttribute("aria-hidden", "false");
+    document.querySelector("editBorrowRecordModal").setAttribute("aria-hidden", "false");
 
 }
