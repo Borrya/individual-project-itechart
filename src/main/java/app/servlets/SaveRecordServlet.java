@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class EditRecordServlet extends HttpServlet {
-
+public class SaveRecordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
@@ -21,11 +20,12 @@ public class EditRecordServlet extends HttpServlet {
         processRequest(req, resp);
     }
 
-    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/full_book_page.jsp");
+        Book book = new Book();
+        book.setTitle(req.getParameter("title"));
+        System.out.println(book.getTitle());
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/book_page.jsp");
         requestDispatcher.forward(req, resp);
-
     }
-    //<c:out value="${book.author}" />
 }

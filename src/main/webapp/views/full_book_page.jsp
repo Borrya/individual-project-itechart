@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/sql" %>
 <html>
 <head>
     <title>Book Page</title>
@@ -18,8 +20,9 @@
 <header id="pageHeader"></header>
 <article id="mainArticle">
     <h3>Book Info</h3>
-    <button type="button" class="btn btn-light" style="margin-bottom: 11px">Edit</button>
-    <form id="bookForm">
+    <jsp:useBean id="book" scope="request" class="app.dbService.dataSets.Book"/>
+    <form id="bookForm" >
+        <button type="button" class="btn btn-light" style="margin-bottom: 11px" onclick="location.href='add?action=update'">Edit</button>
         <div class="custom-file">
             <label for="cover">Cover</label>
             <input type="file" class="custom-file-input" id="cover">
@@ -28,67 +31,68 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
-                    <label for="title">Title*</label>
-                    <input type="text" class="form-control" id="title" placeholder="Title of the book...">
+                    <label>Title*</label>
+                    <input type="text" class="form-control" id="title" value="${book.title}" name="title" readonly>
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <div class="form-group">
-                    <label for="author">Author(-s)*</label>
-                    <input type="text" class="form-control" id="author" placeholder="Author's name...">
+                    <label>Author(-s)*</label>
+                    <input type="text" class="form-control" id="author" value="${book.author}" name="author" readonly>
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <div class="form-group">
-                    <label for="genre">Genre(-s)*</label>
-                    <input type="text" class="form-control" id="genre" placeholder="Genre...">
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label for="publisher">Publisher</label>
-                    <input type="text" class="form-control" id="publisher" placeholder="Publisher's name...">
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label for="publish_date">Publish Date*</label>
-                    <input type="date" class="form-control" id="publish_date" placeholder="01.01.1999">
+                    <label>Genre(-s)*</label>
+                    <input type="text" class="form-control" id="genre" value="${book.genre}" name="genre" readonly>
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
-                    <label for="count">Page count*</label>
-                    <input type="number" class="form-control" id="count" placeholder="Page count...">
+                    <label>Publisher*</label>
+                    <input type="text" class="form-control" id="publisher" value="${book.publisher}" name="publisher" readonly>
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <div class="form-group">
-                    <label for="isbn">ISBN*</label>
-                    <input type="number" class="form-control" id="isbn" placeholder="ISBN...">
+                    <label>Publish Date*</label>
+                    <input type="text" class="form-control" id="date" value="${book.date}" name="date" readonly>
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3"></textarea>
+                    <label>Page count*</label>
+                    <input type="text" class="form-control" id="pages" value="${book.pages}" name="pages" readonly>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="form-group">
+                    <label>ISBN*</label>
+                    <input type="text" class="form-control" id="isbn" value="${book.isbn}" name="isbn" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" id="description" value="${book.description}" name="description" readonly>
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="form-group">
-                    <label for="total_amount">Total Amount*</label>
-                    <input type="number" class="form-control" id="total_amount">
+                    <label>Total Amount*</label>
+                    <input type="text" class="form-control" id="amount" value="${book.amount}" name="total_amount" readonly>
+
                 </div>
             </div>
             <div class="form-group col-md-4">
                 <div class="form-group">
-                    <label for="total_amount">Status</label>
+                    <label for="status">Status</label>
                     <input class="form-control" type="text" placeholder="Available" readonly>
                 </div>
             </div>

@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-article, nav,div {
+article, nav, #siteAds {
     padding: 20px;
     background: #a7846e;
 }
@@ -91,7 +91,7 @@ table{
     grid-template-rows: 30px 35px;
     grid-row-gap: 30px;
     height: 60px;
-    margin-left: -15px;
+    margin-left: 7px;
 }
 
 #inner-grid-ads > div {
