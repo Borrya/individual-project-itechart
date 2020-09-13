@@ -71,3 +71,7 @@ footer {
     background: black;
     padding: 10px;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Choose";
+}

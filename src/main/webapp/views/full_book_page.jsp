@@ -24,14 +24,15 @@
     <form id="bookForm" >
         <button type="button" class="btn btn-light" style="margin-bottom: 11px" onclick="location.href='add?action=update'">Edit</button>
         <div class="custom-file">
-            <label for="cover">Cover</label>
-            <input type="file" class="custom-file-input" id="cover">
-            <label class="custom-file-label" for="cover">Choose file for cover</label>
+            <label>Cover</label>
+            <div class="text-left">
+                <img src="data:image/jpg;base64,${book.cover64}" alt="Cover for book" style="width: 250px; height: 250px">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
-                    <label>Title*</label>
+                    <label for="title">Title*</label>
                     <input type="text" class="form-control" id="title" value="${book.title}" name="title" readonly>
                 </div>
             </div>
@@ -93,7 +94,7 @@
             <div class="form-group col-md-4">
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <input class="form-control" type="text" placeholder="Available" readonly>
+                    <input class="form-control" type="text" value="${book.status}" name="status" readonly>
                 </div>
             </div>
         </div>
@@ -241,7 +242,6 @@
     </div>
 </nav>
 <footer id="pageFooter"></footer>
-<script type="text/javascript" src="${pageContext.request.contextPath}/control/full_book_page.js"></script>
 <!-- Подключаем jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Подключаем плагин Popper -->

@@ -23,15 +23,14 @@
     <form action="/add?action=submit" method="post" enctype="multipart/form-data">
         <div class="custom-file">
             <label for="cover">Cover</label>
-            <input type="file" class="custom-file-input" id="cover" name="cover">
+            <input type="file" class="custom-file-input" id="cover" name="cover" accept="image/jpeg, image/png">
             <label class="custom-file-label" for="cover">Choose file for cover</label>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="title">Title*</label>
-                    <input type="text" class="form-control" id="title" placeholder="Pride and Prejudice" name="title"
-                           required>
+                    <input type="text" class="form-control" id="title" placeholder="Pride and Prejudice" name="title" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -43,8 +42,7 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="author">Author(-s)*</label>
-                    <input type="text" class="form-control" id="author" placeholder="Jane Austen"  name="author"
-                           required>
+                    <input type="text" class="form-control" id="author" placeholder="Jane Austen"  name="author" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -56,8 +54,7 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="genre">Genre(-s)*</label>
-                    <input type="text" class="form-control" id="genre" placeholder="Romance novel" name="genre"
-                           required>
+                    <input type="text" class="form-control" id="genre" placeholder="Romance novel" name="genre" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -110,8 +107,7 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="isbn">ISBN*</label>
-                    <input type="number" class="form-control" id="isbn" placeholder="98752345689" name="isbn"
-                           required>
+                    <input type="number" class="form-control" id="isbn" placeholder="98752345689" name="isbn" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -131,7 +127,7 @@
             <div class="form-group col-md-2">
                 <div class="form-group">
                     <label for="total_amount">Total Amount*</label>
-                    <input type="number" class="form-control" id="total_amount" placeholder="2" required >
+                    <input type="number" class="form-control" id="total_amount" name="total_amount" placeholder="2" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>

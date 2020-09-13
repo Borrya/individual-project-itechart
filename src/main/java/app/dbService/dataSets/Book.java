@@ -3,7 +3,8 @@ package app.dbService.dataSets;
 import java.io.File;
 
 public class Book {
-    private File cover;
+    private String cover64;
+    private byte[] cover;
     private String title;
     private String author;
     private String genre;
@@ -50,16 +51,18 @@ public class Book {
         return amount;
     }
 
-    public File getCover() {
-        return cover;
+    public String getCover64() {
+        return cover64;
     }
+
+    public byte[] getCover(){ return this.cover;}
 
     public String getStatus(){ return status; }
 
     public String getDescription() { return description; }
 
-    public void setCover(File cover) {
-        this.cover = cover;
+    public void setCover64(String cover64) {
+        this.cover64 = cover64;
     }
 
     public void setTitle(String title) {

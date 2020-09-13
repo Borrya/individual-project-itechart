@@ -4,6 +4,7 @@ import app.dbService.dao.BookDAO;
 import app.dbService.dataSets.Book;
 import org.h2.jdbcx.JdbcDataSource;
 
+import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -21,7 +22,7 @@ public class DBService {
             DriverManager.registerDriver((Driver) Class.forName("org.postgresql.Driver").newInstance());
             String url = "jdbc:postgresql://localhost:5432/books";
             String name = "postgres";
-            String pass = "5325475";
+            String pass = "5325475lol";
 
             JdbcDataSource ds = new JdbcDataSource();
             ds.setURL(url);
@@ -40,7 +41,6 @@ public class DBService {
         try {
             connection.setAutoCommit(false);
             BookDAO dao = new BookDAO(connection);
-            dao.createTable();
             dao.insertBook(book);
             connection.commit();
         } catch (SQLException e) {

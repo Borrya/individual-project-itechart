@@ -1,5 +1,6 @@
 package app.servlets;
 
+import app.dbService.DBException;
 import app.dbService.DBService;
 import app.dbService.dataSets.Book;
 import org.apache.tomcat.util.http.fileupload.FileItem;
@@ -11,21 +12,28 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.http.Part;
+import java.io.*;
+import org.apache.commons.codec.binary.Base64;
 import java.util.Iterator;
 import java.util.List;
 
+//@MultipartConfig(maxFileSize = 2*1024*1024)
 public class AddRecordServlet extends HttpServlet {
+    private DBService service;
     private Book book;
+    private String UPLOAD_DIRECTORY;
+    private File file;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init();
         book = new Book();
+        UPLOAD_DIRECTORY ="D:\\Book Library. ItechArt\\src\\main\\webapp\\images";
     }
 
     @Override
@@ -48,6 +56,7 @@ public class AddRecordServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
 
+        String filename = "";
         String title = "";
         String publisher = "";
         String author = "";
@@ -57,9 +66,10 @@ public class AddRecordServlet extends HttpServlet {
         long isbn = 0;
         int pages = 0;
         int total_amount = 0;
+        String st_1 = "Available";
+        String st_2 = "Unavailable";
 
         if ("submit".equals(action)) {
-            int count1=0,count2=0,count3=0,count4=0,count5=0, count6=0, count7=0,count8=0,count9=0;
             boolean isMultipart = ServletFileUpload.isMultipartContent(req);
             PrintWriter out = resp.getWriter();
             if (!isMultipart) {
@@ -121,12 +131,22 @@ public class AddRecordServlet extends HttpServlet {
                     }
                     else
                     {
-                            String itemName = item.getName();
-                        System.out.println(itemName);
-
+                        int id = 1;
+                        filename = new File(item.getName()).getName();
+                        //String filename2 = filename.substring(0, filename.lastIndexOf('.')) + id;
+                        try {
+                            file = new File(UPLOAD_DIRECTORY + File.separator + filename);
+                            item.write(file);
+                            byte[] bArray = readFileToByteArray(file);
+                            String base64Image = Base64.encodeBase64String(bArray);
+                            book.setCover64(base64Image);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
+
             book.setTitle(title);
             book.setAuthor(author);
             book.setGenre(genre);
@@ -136,17 +156,33 @@ public class AddRecordServlet extends HttpServlet {
             book.setIsbn(isbn);
             book.setDescription(description);
             book.setAmount(total_amount);
-            System.out.println(book.getTitle());
-            System.out.println(book.getDate());
+            book.setStatus(st_1);
         }
+
+        insertBook(book);
 
         req.setAttribute("book", book);
         req.getRequestDispatcher("views/full_book_page.jsp").forward(req, resp);
     }
 
-    private void insertBook() {
-        DBService service = new DBService();
+    private void insertBook(Book book) {
+        try {
+            service.addBook(book);
+        }catch (DBException e){
+            System.out.println("Cannot add book in the database");
+        }
     }
 
-    //${pageContext.request.contextPath}
+    private static byte[] readFileToByteArray(File file){
+        FileInputStream fis = null;
+        byte[] bArray = new byte[(int) file.length()];
+        try{
+            fis = new FileInputStream(file);
+            fis.read(bArray);
+            fis.close();
+        }catch(IOException ioExp){
+            ioExp.printStackTrace();
+        }
+        return bArray;
+    }
 }

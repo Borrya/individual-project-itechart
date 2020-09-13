@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource name="jdbc/books"
+              auth="Container"
+              type="java.sql.DriverManager"
+              driverClassName="org.postgresql.Driver"
+              username="postgres"
+              password="5325475lol"
+              url="jdbc:postgresql://localhost:5432/books"
+              maxActive="100"
+              maxIdle="30"
+              maxWait="10000"/>
+</Context>
