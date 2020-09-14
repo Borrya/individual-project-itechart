@@ -12,19 +12,16 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.*;
 import org.apache.commons.codec.binary.Base64;
 import java.util.Iterator;
 import java.util.List;
 
-//@MultipartConfig(maxFileSize = 2*1024*1024)
 public class AddRecordServlet extends HttpServlet {
-    private DBService service;
+    private DBService service = new DBService();
     private Book book;
     private String UPLOAD_DIRECTORY;
     private File file;
@@ -71,7 +68,6 @@ public class AddRecordServlet extends HttpServlet {
 
         if ("submit".equals(action)) {
             boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-            PrintWriter out = resp.getWriter();
             if (!isMultipart) {
             }
             else {
@@ -133,7 +129,13 @@ public class AddRecordServlet extends HttpServlet {
                     {
                         int id = 1;
                         filename = new File(item.getName()).getName();
-                        //String filename2 = filename.substring(0, filename.lastIndexOf('.')) + id;
+                        int i = filename.lastIndexOf('.');
+                        if (i != -1) {
+                            String filename2 = filename.substring(0, i) + id;
+                            id++;
+                            String ext = filename.substring(i, filename.length());
+                            filename = filename2 + ext;
+                        }
                         try {
                             file = new File(UPLOAD_DIRECTORY + File.separator + filename);
                             item.write(file);

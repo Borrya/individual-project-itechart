@@ -24,9 +24,8 @@
     <form id="bookForm" >
         <button type="button" class="btn btn-light" style="margin-bottom: 11px" onclick="location.href='add?action=update'">Edit</button>
         <div class="custom-file">
-            <label>Cover</label>
-            <div class="text-left">
-                <img src="data:image/jpg;base64,${book.cover64}" alt="Cover for book" style="width: 250px; height: 250px">
+            <div class="text-right">
+                <img src="data:image/jpg;base64,${book.cover64}" onerror="this.src='images/empty.png'" alt="Cover for book" style="width: 350px; height: 350px; position: relative; z-index: 1; margin-right: 40px; margin-top: 68px; box-shadow: 0px 0px 0px 6px #b38484, 0px 0px 0px 25px #fff">
             </div>
         </div>
         <div class="form-row">
@@ -36,12 +35,16 @@
                     <input type="text" class="form-control" id="title" value="${book.title}" name="title" readonly>
                 </div>
             </div>
+        </div>
+        <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label>Author(-s)*</label>
                     <input type="text" class="form-control" id="author" value="${book.author}" name="author" readonly>
                 </div>
             </div>
+        </div>
+        <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label>Genre(-s)*</label>
@@ -56,6 +59,8 @@
                     <input type="text" class="form-control" id="publisher" value="${book.publisher}" name="publisher" readonly>
                 </div>
             </div>
+        </div>
+        <div class="form-row">
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label>Publish Date*</label>

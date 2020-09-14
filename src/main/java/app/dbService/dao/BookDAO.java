@@ -14,8 +14,8 @@ public class BookDAO {
     }
 
     public void insertBook(Book book) throws SQLException {
-        executor.execUpdate("insert into books (cover, title, authors, genres, publisher, publish_date, isbn, pages, description, total_amount, status) values ('" + book.getCover64() + "' , '" + book.getTitle()+ "', '" +
-                book.getAuthor() + "', '" + book.getGenre() + "' , '" + book.getPublisher() + "' , '" + book.getDate()+ "' , " +
-                book.getIsbn() + book.getPages() + " , '" + book.getDescription() + "' , " + book.getAmount() + " , '" + book.getStatus() + "')");
+        executor.execUpdate("insert into book (cover, title, authors, genres, publisher, publish_date, isbn, pages, description, total_amount, status) values ('" + book.getCover64() + "' , '" + book.getTitle()+ "', '" +
+                book.getAuthor() + "', '" + book.getGenre() + "', '" + book.getPublisher() + "', '" + book.getDate()+ "', " +
+                book.getIsbn()+ ", " + book.getPages() + ", '" + book.getDescription() + "', " + book.getAmount() + ", '" + book.getStatus() + "')");
     }
 }

@@ -3,6 +3,7 @@ package app.dbService.dataSets;
 import java.io.File;
 
 public class Book {
+    private int id;
     private String cover64;
     private byte[] cover;
     private String title;
@@ -17,6 +18,10 @@ public class Book {
     private String status;
 
     public Book(){
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -83,6 +88,10 @@ public class Book {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setPages(int pages) {
