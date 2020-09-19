@@ -13,7 +13,7 @@ article, nav, #siteAds {
     background: #a7846e;
 }
 
-header{
+header {
     padding: 30px;
 }
 
@@ -27,22 +27,21 @@ footer {
     background: #dfb798 url(../images/library2.jpg);
 }
 
-h1{
+h1 {
     font-family: "Impact";
     margin: 0px;
-    text-shadow:
-            -4px -4px rgb(58, 38, 25),
-            0 2px 0 #8d633c;
+    text-shadow: -4px -4px rgb(58, 38, 25),
+    0 2px 0 #8d633c;
     color: white;
     transition: all 1s;
 }
 
-h2, h3, h4{
+h2, h3, h4 {
     font-family: Calibri;
     text-align: center;
 }
 
-a{
+a {
     color: #1d2124;
 }
 
@@ -56,7 +55,7 @@ a{
     grid-area: article;
 }
 
-table{
+table {
     border-color: #82694d;
     background: antiquewhite;
     font-family: Calibri;
@@ -102,7 +101,7 @@ table{
     margin-left: -25px;
 }
 
-.btn-light{
+.btn-light {
     font-family: serif;
     font-size: large;
     border-width: 4px;

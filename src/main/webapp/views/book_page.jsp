@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Даша
@@ -19,8 +20,11 @@
 <header id="pageHeader"></header>
 <article id="mainArticle">
     <h2>Add book info</h2>
-    <jsp:useBean id="book" scope="request" type="app.dbService.dataSets.Book"/>
-    <form action="/add?action=submit" method="post" enctype="multipart/form-data">
+    <jsp:useBean id="book" scope="request" type="app.dbService.entity.Book"/>
+    <form action="/add" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <c:if test="${book != null}">
+            <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
+        </c:if>
         <div class="custom-file">
             <label for="cover">Cover</label>
             <input type="file" class="custom-file-input" id="cover" name="cover" accept="image/jpeg, image/png">
@@ -30,7 +34,8 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="title">Title*</label>
-                    <input type="text" class="form-control" id="title" placeholder="Pride and Prejudice" name="title" required>
+                    <input type="text" class="form-control" id="title" placeholder="Pride and Prejudice" name="title"
+                           required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -42,7 +47,8 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="author">Author(-s)*</label>
-                    <input type="text" class="form-control" id="author" placeholder="Jane Austen"  name="author" required>
+                    <input type="text" class="form-control" id="author" placeholder="Jane Austen" name="author"
+                           required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -54,7 +60,8 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="genre">Genre(-s)*</label>
-                    <input type="text" class="form-control" id="genre" placeholder="Romance novel" name="genre" required>
+                    <input type="text" class="form-control" id="genre" placeholder="Romance novel" name="genre"
+                           required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -68,7 +75,8 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="publisher">Publisher*</label>
-                    <input type="text" class="form-control" id="publisher" placeholder="J. Thomas" value="${book.publisher}" name="publisher" required>
+                    <input type="text" class="form-control" id="publisher" placeholder="J. Thomas"
+                           value="${book.publisher}" name="publisher" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -95,7 +103,7 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="count">Page count*</label>
-                    <input type="number" class="form-control" id="count" placeholder="350"  name="pages" required>
+                    <input type="number" class="form-control" id="count" placeholder="350" name="pages" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -121,13 +129,15 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" name="description" placeholder="The novel follows the character development of Elizabeth Bennet, the dynamic protagonist of the book who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness."></textarea>
+                    <textarea class="form-control" id="description" rows="3" name="description"
+                              placeholder="The novel follows the character development of Elizabeth Bennet, the dynamic protagonist of the book who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness."></textarea>
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <div class="form-group">
                     <label for="total_amount">Total Amount*</label>
-                    <input type="number" class="form-control" id="total_amount" name="total_amount" placeholder="2" required>
+                    <input type="number" class="form-control" id="total_amount" name="total_amount" placeholder="2"
+                           required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -137,11 +147,11 @@
                 </div>
             </div>
         </div>
-    <div id="saveDiscard" style="text-align: center">
-        <!--<input type="submit" name="submit" value="submit" />-->
-        <button type="submit" class="btn btn-secondary" name="submit">Save</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
-    </div>
+        <div id="saveDiscard" style="text-align: center">
+            <!--<input type="submit" name="submit" value="submit" />-->
+            <button type="submit" class="btn btn-secondary" name="submit">Save</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
+        </div>
     </form>
 </article>
 <nav id="mainNav">

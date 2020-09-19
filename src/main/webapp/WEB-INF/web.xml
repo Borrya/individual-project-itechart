@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>add</servlet-name>
-        <servlet-class>app.servlets.AddRecordServlet</servlet-class>
+        <servlet-class>app.servlets.ControllerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -16,22 +16,12 @@
 
     <servlet>
         <servlet-name>edit</servlet-name>
-        <servlet-class>app.servlets.EditRecordServlet</servlet-class>
+        <servlet-class>app.servlets.ControllerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>edit</servlet-name>
         <url-pattern>/edit</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>save</servlet-name>
-        <servlet-class>app.servlets.SaveRecordServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>save</servlet-name>
-        <url-pattern>/save</url-pattern>
     </servlet-mapping>
 
     <resource-env-ref>

@@ -1,6 +1,4 @@
-package app.dbService.dataSets;
-
-import java.io.File;
+package app.dbService.entity;
 
 public class Book {
     private int id;
@@ -17,7 +15,28 @@ public class Book {
     private int amount;
     private String status;
 
-    public Book(){
+    public Book() {
+    }
+
+    public Book(int id) {
+        this.id = id;
+    }
+
+    public Book(int id, String title, String author, String date, int amount) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.date = date;
+        this.amount = amount;
+    }
+
+    public Book(int id, String title, String author, String genre, String publisher, String date, long isbn, int pages, String description, int amount) {
+        this(id, title, author, date, amount);
+        this.genre = genre;
+        this.publisher = publisher;
+        this.pages = pages;
+        this.isbn = isbn;
+        this.description = description;
     }
 
     public int getId() {
@@ -60,11 +79,17 @@ public class Book {
         return cover64;
     }
 
-    public byte[] getCover(){ return this.cover;}
+    public byte[] getCover() {
+        return this.cover;
+    }
 
-    public String getStatus(){ return status; }
+    public String getStatus() {
+        return status;
+    }
 
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     public void setCover64(String cover64) {
         this.cover64 = cover64;

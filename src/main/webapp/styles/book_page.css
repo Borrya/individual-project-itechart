@@ -8,21 +8,21 @@ body {
     margin: 0;
 }
 
-article, nav{
+article, nav {
     padding: 20px;
     background: #a7846e;
 }
 
-h2{
+h2 {
     font-family: Calibri;
     text-align: center;
 }
 
-#navTitle{
+#navTitle {
     text-align: center;
 }
 
-#recordsList{
+#recordsList {
     text-align: left;
 }
 
@@ -30,7 +30,7 @@ header {
     padding: 30px;
 }
 
-form{
+form {
     background-color: #e6cece7d;
     padding: 20px;
 }

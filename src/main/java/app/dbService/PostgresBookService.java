@@ -1,23 +1,25 @@
 package app.dbService;
 
-import app.dbService.dao.BookDAO;
-import app.dbService.dataSets.Book;
+import app.dbService.dao.BookDao;
+import app.dbService.entity.Book;
 import org.h2.jdbcx.JdbcDataSource;
 
-import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
-public class DBService {
+public class PostgresBookService implements BookService {
     private final Connection connection;
+    private BookDao dao;
 
-    public DBService() {
+    public PostgresBookService() {
         this.connection = getPostgresConnection();
+        dao = new BookDao(connection);
     }
 
-    public static Connection getPostgresConnection() {
+    private static Connection getPostgresConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName("org.postgresql.Driver").newInstance());
             String url = "jdbc:postgresql://localhost:5432/books";
@@ -29,19 +31,18 @@ public class DBService {
             ds.setUser(name);
             ds.setPassword(pass);
 
-
             Connection connection = DriverManager.getConnection(url, name, pass);
             return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
+            Logger.getGlobal().info("Connection failed.");
         }
         return null;
     }
 
-    public void addBook(Book book) throws DBException{
+    @Override
+    public void addBook(Book book) throws DBException {
         try {
             connection.setAutoCommit(false);
-            BookDAO dao = new BookDAO(connection);
             dao.insertBook(book);
             connection.commit();
         } catch (SQLException e) {
@@ -53,14 +54,11 @@ public class DBService {
         } finally {
             try {
                 connection.setAutoCommit(true);
+                if (!connection.isClosed()) {
+                    connection.close();
+                }
             } catch (SQLException ignore) {
             }
         }
     }
 }
-
-/*
-CREATE DATABASE books;
-CONNECT TO jdbc:postgresql://localhost:5432/books USER postgres IDENTIFIED BY 5325475;
-GRANT ALL ON DATABASE books TO postgres;
- */

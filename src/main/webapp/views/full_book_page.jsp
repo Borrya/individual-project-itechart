@@ -14,99 +14,116 @@
     <link rel="shortcut icon" href="images/shelf.png" type="image/x-icon">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="styles/book_page.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
 <header id="pageHeader"></header>
 <article id="mainArticle">
     <h3>Book Info</h3>
-    <jsp:useBean id="book" scope="request" class="app.dbService.dataSets.Book"/>
-    <form id="bookForm" >
-        <button type="button" class="btn btn-light" style="margin-bottom: 11px" onclick="location.href='add?action=update'">Edit</button>
-        <div class="custom-file">
-            <div class="text-right">
-                <img src="data:image/jpg;base64,${book.cover64}" onerror="this.src='images/empty.png'" alt="Cover for book" style="width: 350px; height: 350px; position: relative; z-index: 1; margin-right: 40px; margin-top: 68px; box-shadow: 0px 0px 0px 6px #b38484, 0px 0px 0px 25px #fff">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label for="title">Title*</label>
-                    <input type="text" class="form-control" id="title" value="${book.title}" name="title" readonly>
+    <jsp:useBean id="book" scope="request" class="app.dbService.entity.Book"/>
+    <form id="bookForm">
+        <c:if test="${book != null}">
+            <button type="button" class="btn btn-light" style="margin-bottom: 11px"
+                    onclick="location.href='/edit'">Edit
+            </button>
+        </c:if>
+        <fieldset disabled>
+            <div class="custom-file">
+                <div class="text-right">
+                    <img src="data:image/jpg;base64,${book.cover64}" onerror="this.src='images/empty.png'"
+                         alt="Cover for book"
+                         style="width: 350px; height: 350px; position: relative; z-index: 1; margin-right: 40px; margin-top: 68px; box-shadow: 0px 0px 0px 6px #b38484, 0px 0px 0px 25px #fff">
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label>Author(-s)*</label>
-                    <input type="text" class="form-control" id="author" value="${book.author}" name="author" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label for="title">Title*</label>
+                        <input type="text" class="form-control" id="title" value="${book.title}" name="title">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label>Genre(-s)*</label>
-                    <input type="text" class="form-control" id="genre" value="${book.genre}" name="genre" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label>Author(-s)*</label>
+                        <input type="text" class="form-control" id="author" value="${book.author}" name="author"
+                        >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label>Publisher*</label>
-                    <input type="text" class="form-control" id="publisher" value="${book.publisher}" name="publisher" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label>Genre(-s)*</label>
+                        <input type="text" class="form-control" id="genre" value="${book.genre}" name="genre" readonly>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label>Publish Date*</label>
-                    <input type="text" class="form-control" id="date" value="${book.date}" name="date" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label>Publisher*</label>
+                        <input type="text" class="form-control" id="publisher" value="${book.publisher}"
+                               name="publisher"
+                        >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label>Page count*</label>
-                    <input type="text" class="form-control" id="pages" value="${book.pages}" name="pages" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label>Publish Date*</label>
+                        <input type="text" class="form-control" id="date" value="${book.date}" name="date">
+                    </div>
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label>ISBN*</label>
-                    <input type="text" class="form-control" id="isbn" value="${book.isbn}" name="isbn" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label>Page count*</label>
+                        <input type="text" class="form-control" id="pages" value="${book.pages}" name="pages">
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label>ISBN*</label>
+                        <input type="text" class="form-control" id="isbn" value="${book.isbn}" name="isbn">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" class="form-control" id="description" value="${book.description}" name="description" readonly>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="description" rows="3" name="description"
+                                  value="${book.description}"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-md-2">
-                <div class="form-group">
-                    <label>Total Amount*</label>
-                    <input type="text" class="form-control" id="amount" value="${book.amount}" name="total_amount" readonly>
+                <div class="form-group col-md-2">
+                    <div class="form-group">
+                        <label>Total Amount*</label>
+                        <input type="text" class="form-control" id="amount" value="${book.amount}" name="total_amount"
+                        >
 
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input class="form-control" type="text" value="${book.status}" name="status">
+                    </div>
                 </div>
             </div>
-            <div class="form-group col-md-4">
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <input class="form-control" type="text" value="${book.status}" name="status" readonly>
-                </div>
-            </div>
-        </div>
+        </fieldset>
     </form>
     <h3 id="recordsList">Borrow Records List</h3>
-    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addBorrowRecordModal" style="margin-bottom: 11px">Add</button>
-    <table class="table table-hover" style="background-color: antiquewhite; text-align: center; border-color: #82694d; font-family: Calibri">
+    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#addBorrowRecordModal"
+            style="margin-bottom: 11px">Add
+    </button>
+    <table class="table table-hover"
+           style="background-color: antiquewhite; text-align: center; border-color: #82694d; font-family: Calibri">
         <thead>
         <tr id="tr1">
             <th scope="col">#</th>
@@ -120,7 +137,10 @@
         <tbody id="tableBody">
         <tr>
             <th scope="row">1</th>
-            <td><button type="button" class="btn btn-link" style="color: #212529" data-toggle="modal" data-target="#editBorrowRecordModal">Daria</button>
+            <td>
+                <button type="button" class="btn btn-link" style="color: #212529" data-toggle="modal"
+                        data-target="#editBorrowRecordModal">Daria
+                </button>
             <td>borrya@org.com</td>
             <td>08.08.2020</td>
             <td>1 month</td>
@@ -129,7 +149,8 @@
         </tbody>
     </table>
     <!-- Modal Window for Adding New Record -->
-    <div class="modal fade" id="addBorrowRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="addBorrowRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -143,7 +164,8 @@
                         <div class="form-group col-md-6" style="max-width: 100%">
                             <div class="form-group">
                                 <label for="addEmail">Reader email address*</label>
-                                <input type="email" class="form-control" id="addEmail" placeholder="name@example.com" required>
+                                <input type="email" class="form-control" id="addEmail" placeholder="name@example.com"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group col-md-6" style="max-width: 100%">
@@ -175,7 +197,8 @@
         </div>
     </div>
     <!-- Modal Window for Editing New Record -->
-    <div class="modal fade" id="editBorrowRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="editBorrowRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -189,7 +212,8 @@
                         <div class="form-group col-md-6" style="max-width: 100%">
                             <div class="form-group">
                                 <label for="editEmail">Reader email address</label>
-                                <input type="email" class="form-control" id="editEmail" placeholder="name@example.com" readonly>
+                                <input type="email" class="form-control" id="editEmail" placeholder="name@example.com"
+                                       readonly>
                             </div>
                         </div>
                         <div class="form-group col-md-6" style="max-width: 100%">
@@ -201,13 +225,15 @@
                         <div class="form-group col-md-4" style="max-width: 100%">
                             <div class="form-group">
                                 <label for="borrowDate">Borrow Date</label>
-                                <input type="number" class="form-control" id="borrowDate" placeholder="01.01.1999" required>
+                                <input type="number" class="form-control" id="borrowDate" placeholder="01.01.1999"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group col-md-4" style="max-width: 100%">
                             <div class="form-group">
                                 <label for="timePeriod">Time Period</label>
-                                <input type="number" class="form-control" id="timePeriod" placeholder="1 month" readonly>
+                                <input type="number" class="form-control" id="timePeriod" placeholder="1 month"
+                                       readonly>
                             </div>
                         </div>
                         <div class="form-group col-md-4" style="max-width: 100%">
@@ -235,7 +261,7 @@
         </div>
     </div>
     <div id="saveDiscard" style="text-align: center">
-        <button type="button" class="btn btn-secondary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Save</button>
         <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
     </div>
 </article>
@@ -250,8 +276,12 @@
 <!-- Подключаем jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Подключаем плагин Popper -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
 <!-- Подключаем Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
 </body>
 </html>

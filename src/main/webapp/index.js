@@ -1,8 +1,7 @@
-
 function addRows(rowsMin) {
     var tableBody = document.getElementById('tableBody');
     var id = 1;
-    for(var j = 0; j < 10; j++) {
+    for (var j = 0; j < 10; j++) {
         var newRow = document.createElement("tr");
         var firstCell = document.createElement("th");
         firstCell.setAttribute("scope", "row");

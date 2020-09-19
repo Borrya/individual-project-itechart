@@ -8,20 +8,20 @@ body {
     margin: 0;
 }
 
-article, nav{
+article, nav {
     padding: 20px;
     background: #a7846e;
 }
 
-h3{
+h3 {
     text-align: left;
 }
 
-#navTitle{
+#navTitle {
     text-align: center;
 }
 
-#recordsList{
+#recordsList {
     text-align: left;
 }
 
@@ -29,7 +29,7 @@ header {
     padding: 30px;
 }
 
-#bookForm{
+#bookForm {
     background-color: #e6cece7d;
     padding: 20px;
 }
