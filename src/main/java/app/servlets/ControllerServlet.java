@@ -2,7 +2,6 @@ package app.servlets;
 
 import app.dbService.DBException;
 import app.dbService.PostgresBookService;
-import app.dbService.dao.BookDao;
 import app.dbService.entity.Book;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
@@ -26,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ControllerServlet extends HttpServlet {
-    private BookDao bookDao;
     private final PostgresBookService service = new PostgresBookService();
     private Book book;
     private String UPLOAD_DIRECTORY;
@@ -40,15 +38,18 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
+        String action = req.getServletPath();
         req.setAttribute("book", book);
-        switch (action == null ? "info" : action) {
-            case "update":
+        switch (action == null ? "add" : action) {
+            case "/edit":
                 req.getRequestDispatcher("views/full_book_page.jsp").forward(req, resp);
                 break;
-            case "info":
-            default:
+            case "/add":
                 req.getRequestDispatcher("views/book_page.jsp").forward(req, resp);
+                break;
+            case "/remove":
+            default:
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
                 break;
         }
     }
@@ -56,12 +57,11 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        //String action = req.getParameter("action");
         String action = req.getServletPath();
         String filename;
         String st_1 = "Available";
         String st_2 = "Unavailable";
-        int id = 1;
+        int id = 0;
         int id1 = 1;
 
         try {
@@ -131,10 +131,12 @@ public class ControllerServlet extends HttpServlet {
                             }
                         }
                     }
+                    id++;
                     book.setId(id);
                     book.setStatus(st_1);
 
                     insertBook(req, resp, book);
+                    listBook(req, resp);
                     break;
                 case "/remove":
                     deleteBook(req, resp);
@@ -142,6 +144,10 @@ public class ControllerServlet extends HttpServlet {
                 case "/edit":
                     showEditForm(req, resp);
                     break;
+                case "/update":
+                    updateBook(req, resp);
+                    break;
+                case "/list":
                 default:
                     listBook(req, resp);
                     break;
@@ -149,6 +155,8 @@ public class ControllerServlet extends HttpServlet {
 
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        } catch (DBException e) {
+            e.printStackTrace();
         }
     }
 
@@ -156,7 +164,6 @@ public class ControllerServlet extends HttpServlet {
         try {
             service.addBook(book);
             req.setAttribute("book", book);
-            req.getRequestDispatcher("views/full_book_page.jsp").forward(req, resp);
         } catch (DBException e) {
             System.out.println("Cannot add book in the database");
         }
@@ -173,28 +180,53 @@ public class ControllerServlet extends HttpServlet {
     }
 
     private void listBook(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        List<Book> listBook = bookDao.listAllBooks();
+            throws DBException, IOException, ServletException {
+        List<Book> listBook = service.listBooks();
         request.setAttribute("listBook", listBook);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.html");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     private void deleteBook(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+            throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
 
         Book book = new Book(id);
-        bookDao.deleteBook(book);
-        response.sendRedirect("index.html");
-    }
+        try {
+            service.deleteBook(book);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        request.getRequestDispatcher("index.jsp").forward(request, response);    }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, ServletException, IOException {
+            throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Book existingBook = bookDao.getBook(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("book_page.jsp");
+        Book existingBook = null;
+        try {
+            existingBook = service.getBook(id);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_page.jsp");
         request.setAttribute("book", existingBook);
         dispatcher.forward(request, response);
+    }
+
+    private void updateBook(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, DBException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String genre = request.getParameter("genre");
+        String publisher = request.getParameter("publisher");
+        String date = request.getParameter("date");
+        long isbn = Long.parseLong(request.getParameter("isbn"));
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        String description = request.getParameter("description");
+        int amount = Integer.parseInt(request.getParameter("total_amount"));
+
+        Book book = new Book(id, title, author, genre, publisher, date, isbn, pages, description, amount);
+        service.updateBook(book);
+        response.sendRedirect("index.jsp");
     }
 }

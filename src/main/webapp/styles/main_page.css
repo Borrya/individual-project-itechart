@@ -87,10 +87,10 @@ table {
 #inner-grid-ads {
     display: grid;
     position: fixed;
-    grid-template-rows: 30px 35px;
+    grid-template-rows: 30px;
     grid-row-gap: 30px;
     height: 60px;
-    margin-left: 7px;
+    margin-left: 17px;
 }
 
 #inner-grid-ads > div {

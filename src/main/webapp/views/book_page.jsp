@@ -21,7 +21,8 @@
 <article id="mainArticle">
     <h2>Add book info</h2>
     <jsp:useBean id="book" scope="request" type="app.dbService.entity.Book"/>
-    <form action="/add" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+
+        <form action="/add" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         <c:if test="${book != null}">
             <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
         </c:if>

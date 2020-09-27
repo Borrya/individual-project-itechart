@@ -1,7 +1,19 @@
-<!DOCTYPE html>
+<%@ page import="app.dbService.entity.Book" %>
+<%@ page import="java.util.List" %>
+<%@ page import="static org.apache.coyote.http11.Constants.a" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Даша
+  Date: 25.09.2020
+  Time: 0:22
+  To change this template use File | Settings | File Templates.
+--%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Book Library</title>
     <link rel="shortcut icon" href="images/shelf.png" type="image/x-icon">
@@ -14,9 +26,7 @@
     <h1>Welcome to the Book Library</h1>
 </header>
 <article id="mainArticle">
-    <caption>
-        <h2>Book List</h2>
-    </caption>
+    <h2>Book List</h2>
     <table class="table table-hover">
         <thead>
         <tr id="tr1">
@@ -25,16 +35,37 @@
             <th scope="col">Author</th>
             <th scope="col">Publish Date</th>
             <th scope="col">Amount of available book copies</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody id="tableBody">
+        <%
+            if (request.getAttribute("listBook") != null) {
+                List<Book> list =
+                        (List<Book>) request.getAttribute("listBook");
+                for (Book book : list) {
+        %>
+
         <tr>
-            <th scope="row">1</th>
-            <td><a style="color: #1d2124" href="/edit">11.22.63</a></td>
-            <td>S.King</td>
-            <td>08.11.2011</td>
-            <td>2</td>
+            <th scope="row">${book.id}</th>
+            <td><a style="color: #1d2124"
+                   href="${pageContext.request.contextPath}/edit?id=<c:out value='${book.id}' />"><%=book.getTitle()%>
+            </a></td>
+            <td><%=book.getAuthor()%>
+            </td>
+            <td><%=book.getDate()%>
+            </td>
+            <td><%=book.getAmount()%>
+            </td>
+            <td>
+                <a style="color: #1d2124"
+                   href="${pageContext.request.contextPath}/remove?id=<c:out value='${book.id}' />">Delete</a>
+            </td>
         </tr>
+        <%
+                }
+            }
+        %>
         </tbody>
     </table>
     <nav aria-label="pagination">
@@ -107,12 +138,11 @@
     <div id="inner-grid-ads">
         <h4>Edit</h4>
         <button type="button" class="btn btn-light" onclick="location.href='/add'">Add</button>
-        <button type="button" class="btn btn-light" onclick="location.href='/remove'">Remove</button>
     </div>
 </div>
 <footer id="pageFooter"></footer>
 
-<script src="index.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/index.js"></script>
 <!-- Подключаем jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

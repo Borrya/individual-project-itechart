@@ -22,13 +22,16 @@
 <article id="mainArticle">
     <h3>Book Info</h3>
     <jsp:useBean id="book" scope="request" class="app.dbService.entity.Book"/>
-    <form id="bookForm">
+    <form id="bookForm" action="/update">
         <c:if test="${book != null}">
             <button type="button" class="btn btn-light" style="margin-bottom: 11px"
                     onclick="location.href='/edit'">Edit
             </button>
         </c:if>
         <fieldset disabled>
+            <c:if test="${book != null}">
+                <input type="hidden" name="id" value="<c:out value='${book.id}' />" />
+            </c:if>
             <div class="custom-file">
                 <div class="text-right">
                     <img src="data:image/jpg;base64,${book.cover64}" onerror="this.src='images/empty.png'"
@@ -40,7 +43,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="title">Title*</label>
-                        <input type="text" class="form-control" id="title" value="${book.title}" name="title">
+                        <input type="text" class="form-control" id="title" value="<c:out value='${book.title}' />" name="title">
                     </div>
                 </div>
             </div>
@@ -48,7 +51,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Author(-s)*</label>
-                        <input type="text" class="form-control" id="author" value="${book.author}" name="author"
+                        <input type="text" class="form-control" id="author" value="<c:out value='${book.author}' />" name="author"
                         >
                     </div>
                 </div>
@@ -57,7 +60,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Genre(-s)*</label>
-                        <input type="text" class="form-control" id="genre" value="${book.genre}" name="genre" readonly>
+                        <input type="text" class="form-control" id="genre" value="<c:out value='${book.genre}' />" name="genre" readonly>
                     </div>
                 </div>
             </div>
@@ -65,7 +68,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Publisher*</label>
-                        <input type="text" class="form-control" id="publisher" value="${book.publisher}"
+                        <input type="text" class="form-control" id="publisher" value="<c:out value='${book.publisher}' />"
                                name="publisher"
                         >
                     </div>
@@ -75,7 +78,7 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Publish Date*</label>
-                        <input type="text" class="form-control" id="date" value="${book.date}" name="date">
+                        <input type="text" class="form-control" id="date" value="<c:out value='${book.date}' />" name="date">
                     </div>
                 </div>
             </div>
@@ -83,13 +86,13 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Page count*</label>
-                        <input type="text" class="form-control" id="pages" value="${book.pages}" name="pages">
+                        <input type="text" class="form-control" id="pages" value="<c:out value='${book.pages}' />" name="pages">
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>ISBN*</label>
-                        <input type="text" class="form-control" id="isbn" value="${book.isbn}" name="isbn">
+                        <input type="text" class="form-control" id="isbn" value="<c:out value='${book.isbn}' />" name="isbn">
                     </div>
                 </div>
             </div>
@@ -98,13 +101,13 @@
                     <div class="form-group">
                         <label>Description</label>
                         <textarea class="form-control" id="description" rows="3" name="description"
-                                  value="${book.description}"></textarea>
+                                  value="<c:out value='${book.description}' />"></textarea>
                     </div>
                 </div>
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label>Total Amount*</label>
-                        <input type="text" class="form-control" id="amount" value="${book.amount}" name="total_amount"
+                        <input type="text" class="form-control" id="amount" value="<c:out value='${book.amount}' />" name="total_amount"
                         >
 
                     </div>
@@ -112,7 +115,7 @@
                 <div class="form-group col-md-4">
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input class="form-control" type="text" value="${book.status}" name="status">
+                        <input class="form-control" type="text" value="<c:out value='${book.status}' />" name="status">
                     </div>
                 </div>
             </div>
