@@ -117,7 +117,7 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="isbn">ISBN*</label>
-                    <input type="number" class="form-control" id="isbn" placeholder="98752345689" name="isbn" required
+                    <input type="number" class="form-control" id="isbn" placeholder="9875234568945" name="isbn" required
                            pattern="[0-9]{13}$">
                     <div class="valid-feedback">
                         Looks good!

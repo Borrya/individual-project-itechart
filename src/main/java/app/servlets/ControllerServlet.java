@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ControllerServlet extends HttpServlet {
     private final PostgresBookService service = new PostgresBookService();
@@ -177,7 +178,7 @@ public class ControllerServlet extends HttpServlet {
             req.setAttribute("book", book);
             //req.getRequestDispatcher("index.jsp").forward(req, resp);
         } catch (DBException e) {
-            System.out.println("Cannot add book in the database");
+            Logger.getGlobal().info("Cannot add book in the database");
         }
     }
 

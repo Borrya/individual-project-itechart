@@ -8,11 +8,12 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class PostgresBookService implements BookService {
-    //private final static Connection connection = getPostgresConnection();
 
     public PostgresBookService() {
     }
@@ -50,6 +51,8 @@ public class PostgresBookService implements BookService {
             Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
+            } else {
+                throw new NullPointerException();
             }
             BookDao dao = new BookDao(connection);
             dao.insertBook(book);
@@ -67,6 +70,8 @@ public class PostgresBookService implements BookService {
             Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
+            } else {
+                throw new NullPointerException();
             }
             BookDao dao = new BookDao(connection);
             dao.deleteBook(book);
@@ -84,6 +89,8 @@ public class PostgresBookService implements BookService {
             Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
+            } else {
+                throw new NullPointerException();
             }
             BookDao dao = new BookDao(connection);
             dao.updateBook(book);
@@ -102,15 +109,18 @@ public class PostgresBookService implements BookService {
             Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
+            } else {
+                throw new NullPointerException();
             }
             BookDao dao = new BookDao(connection);
             listBook = dao.listAllBooks();
             connection.commit();
             disconnect(connection);
+            return listBook;
         } catch (SQLException e) {
             Logger.getGlobal().info("Connection for list of books failed.");
         }
-        return listBook;
+        return Collections.emptyList();
     }
 
     @Override
@@ -120,6 +130,8 @@ public class PostgresBookService implements BookService {
             Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
+            } else {
+                throw new NullPointerException();
             }
             BookDao dao = new BookDao(connection);
             book = dao.getBook(id);
@@ -127,6 +139,6 @@ public class PostgresBookService implements BookService {
         } catch (SQLException e) {
             Logger.getGlobal().info("Connection for getting book failed.");
         }
-        return book;
+        return Optional.ofNullable(book).orElse(new Book());
     }
 }
