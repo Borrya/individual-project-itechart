@@ -1,5 +1,3 @@
-<%@ page import="app.dbService.entity.Book" %>
-<%@ page import="java.util.List" %>
 <%@ page import="static org.apache.coyote.http11.Constants.a" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/sql" %>
@@ -39,33 +37,25 @@
         </tr>
         </thead>
         <tbody id="tableBody">
-        <%
-            if (request.getAttribute("listBook") != null) {
-                List<Book> list =
-                        (List<Book>) request.getAttribute("listBook");
-                for (Book book : list) {
-        %>
 
-        <tr>
-            <th scope="row">${book.id}</th>
-            <td><a style="color: #1d2124"
-                   href="${pageContext.request.contextPath}/edit?id=<c:out value='${book.id}' />"><%=book.getTitle()%>
-            </a></td>
-            <td><%=book.getAuthor()%>
-            </td>
-            <td><%=book.getDate()%>
-            </td>
-            <td><%=book.getAmount()%>
-            </td>
-            <td>
-                <a style="color: #1d2124"
-                   href="${pageContext.request.contextPath}/remove?id=<c:out value='${book.id}' />">Delete</a>
-            </td>
-        </tr>
-        <%
-                }
-            }
-        %>
+        <c:forEach var="book" items="${listBook}">
+            <tr>
+                <th scope="row"><c:out value='${book.id}'/></th>
+                <td><a style="color: #1d2124"
+                       href="${pageContext.request.contextPath}/edit?id=<c:out value='${book.id}'/>">${book.title}
+                </a></td>
+                <td><c:out value='${book.author}'/>
+                </td>
+                <td><c:out value='${book.date}'/>
+                </td>
+                <td><c:out value='${book.amount}'/>
+                </td>
+                <td>
+                    <a style="color: #1d2124"
+                       href="${pageContext.request.contextPath}/remove?id=<c:out value='${book.id}'/>">Delete</a>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
     <nav aria-label="pagination">

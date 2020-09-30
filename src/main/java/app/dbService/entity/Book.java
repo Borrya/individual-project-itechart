@@ -43,40 +43,80 @@ public class Book {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
         return author;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getGenre() {
         return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getPublisher() {
         return publisher;
     }
 
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
     public String getDate() {
         return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getPages() {
         return pages;
     }
 
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
     public long getIsbn() {
         return isbn;
+    }
+
+    public void setIsbn(long isbn) {
+        this.isbn = isbn;
     }
 
     public int getAmount() {
         return amount;
     }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     public String getCover64() {
         return cover64;
+    }
+
+    public void setCover64(String cover64) {
+        this.cover64 = cover64;
     }
 
     public byte[] getCover() {
@@ -87,55 +127,15 @@ public class Book {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public void setCover64(String cover64) {
-        this.cover64 = cover64;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-
-    public void setIsbn(long isbn) {
-        this.isbn = isbn;
-    }
-
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

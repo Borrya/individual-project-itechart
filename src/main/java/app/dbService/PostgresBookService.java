@@ -12,36 +12,33 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class PostgresBookService implements BookService {
-    private final static Connection connection = getPostgresConnection();
-    private BookDao dao;
+    //private final static Connection connection = getPostgresConnection();
 
     public PostgresBookService() {
-        dao = new BookDao(connection);
     }
 
-    private static Connection getPostgresConnection() {
+    public static Connection getPostgresConnection() {
         try {
-            if (connection == null || connection.isClosed()) {
-                DriverManager.registerDriver((Driver) Class.forName("org.postgresql.Driver").newInstance());
-                String url = "jdbc:postgresql://localhost:5432/books";
-                String name = "postgres";
-                String pass = "5325475lol";
+            Connection connection = null;
+            DriverManager.registerDriver((Driver) Class.forName("org.postgresql.Driver").newInstance());
+            String url = "jdbc:postgresql://localhost:5432/books";
+            String name = "postgres";
+            String pass = "5325475lol";
 
-                JdbcDataSource ds = new JdbcDataSource();
-                ds.setURL(url);
-                ds.setUser(name);
-                ds.setPassword(pass);
+            JdbcDataSource ds = new JdbcDataSource();
+            ds.setURL(url);
+            ds.setUser(name);
+            ds.setPassword(pass);
 
-                Connection connection = DriverManager.getConnection(url, name, pass);
-                return connection;
-            }
+            connection = DriverManager.getConnection(url, name, pass);
+            return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             Logger.getGlobal().info("Connection failed.");
         }
         return null;
     }
 
-    protected void disconnect() throws SQLException {
+    protected void disconnect(Connection connection) throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
         }
@@ -50,26 +47,33 @@ public class PostgresBookService implements BookService {
     @Override
     public void addBook(Book book) throws DBException {
         try {
+            Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
             }
+            BookDao dao = new BookDao(connection);
             dao.insertBook(book);
             connection.commit();
+            connection.setAutoCommit(true);
+            disconnect(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getGlobal().info("Connection for adding failed.");
         }
     }
 
     @Override
     public void deleteBook(Book book) throws DBException {
         try {
+            Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
             }
+            BookDao dao = new BookDao(connection);
             dao.deleteBook(book);
             connection.commit();
+            disconnect(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getGlobal().info("Connection for deleting failed.");
         }
     }
 
@@ -77,13 +81,16 @@ public class PostgresBookService implements BookService {
     public void updateBook(Book book) throws DBException {
 
         try {
+            Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
             }
+            BookDao dao = new BookDao(connection);
             dao.updateBook(book);
             connection.commit();
+            disconnect(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getGlobal().info("Connection for updating failed.");
         }
 
     }
@@ -92,13 +99,16 @@ public class PostgresBookService implements BookService {
     public List<Book> listBooks() throws DBException {
         List<Book> listBook = null;
         try {
+            Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
             }
+            BookDao dao = new BookDao(connection);
             listBook = dao.listAllBooks();
             connection.commit();
+            disconnect(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getGlobal().info("Connection for list of books failed.");
         }
         return listBook;
     }
@@ -107,13 +117,15 @@ public class PostgresBookService implements BookService {
     public Book getBook(int id) throws DBException {
         Book book = null;
         try {
+            Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
             }
+            BookDao dao = new BookDao(connection);
             book = dao.getBook(id);
             connection.commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getGlobal().info("Connection for getting book failed.");
         }
         return book;
     }

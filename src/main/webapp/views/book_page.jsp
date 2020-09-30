@@ -22,7 +22,7 @@
     <h2>Add book info</h2>
     <jsp:useBean id="book" scope="request" type="app.dbService.entity.Book"/>
 
-        <form action="/add" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <form action="/add" method="post" enctype="multipart/form-data" class="needs-validation" novalidate="">
         <c:if test="${book != null}">
             <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
         </c:if>
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label for="author">Author(-s)*</label>
                     <input type="text" class="form-control" id="author" placeholder="Jane Austen" name="author"
-                           required>
+                           required pattern="^([a-zA-Z]+\,?\s?)+">
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <label for="genre">Genre(-s)*</label>
                     <input type="text" class="form-control" id="genre" placeholder="Romance novel" name="genre"
-                           required>
+                           required pattern="^([a-zA-Z]+\,?\s?)+">
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -104,7 +104,8 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="count">Page count*</label>
-                    <input type="number" class="form-control" id="count" placeholder="350" name="pages" required>
+                    <input type="number" class="form-control" id="count" min="0" placeholder="350" name="pages"
+                           required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -116,7 +117,8 @@
             <div class="form-group col-md-6">
                 <div class="form-group">
                     <label for="isbn">ISBN*</label>
-                    <input type="number" class="form-control" id="isbn" placeholder="98752345689" name="isbn" required>
+                    <input type="number" class="form-control" id="isbn" placeholder="98752345689" name="isbn" required
+                           pattern="[0-9]{13}$">
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -137,7 +139,8 @@
             <div class="form-group col-md-2">
                 <div class="form-group">
                     <label for="total_amount">Total Amount*</label>
-                    <input type="number" class="form-control" id="total_amount" name="total_amount" placeholder="2"
+                    <input type="number" class="form-control" id="total_amount" min="0" name="total_amount"
+                           placeholder="2"
                            required>
                     <div class="valid-feedback">
                         Looks good!
@@ -149,16 +152,32 @@
             </div>
         </div>
         <div id="saveDiscard" style="text-align: center">
-            <!--<input type="submit" name="submit" value="submit" />-->
             <button type="submit" class="btn btn-secondary" name="submit">Save</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Discard</button>
         </div>
     </form>
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </article>
 <nav id="mainNav">
     <h3 id="navTitle">Navigation</h3>
     <div id="inner-grid-nav">
-        <button type="button" class="btn btn-dark" onclick="location.href='/'">Main Page</button>
+        <button type="button" class="btn btn-dark" onclick="location.href='/list'">Main Page</button>
         <button type="button" class="btn btn-dark">Readers Page</button>
     </div>
 </nav>

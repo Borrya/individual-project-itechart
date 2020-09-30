@@ -21,20 +21,20 @@
 <header id="pageHeader"></header>
 <article id="mainArticle">
     <h3>Book Info</h3>
-    <jsp:useBean id="book" scope="request" class="app.dbService.entity.Book"/>
-    <form id="bookForm" action="/update">
-        <c:if test="${book != null}">
-            <button type="button" class="btn btn-light" style="margin-bottom: 11px"
-                    onclick="location.href='/edit'">Edit
-            </button>
+    <c:if test="${book != null}">
+    <form id="bookForm" action="/update" method="post" enctype="multipart/form-data">
+        <button type="button" class="btn btn-light" style="margin-bottom: 11px"
+                onclick="location.href='/update'">Edit
+        </button>
         </c:if>
         <fieldset disabled>
             <c:if test="${book != null}">
-                <input type="hidden" name="id" value="<c:out value='${book.id}' />" />
+                <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
             </c:if>
             <div class="custom-file">
                 <div class="text-right">
-                    <img src="data:image/jpg;base64,${book.cover64}" onerror="this.src='images/empty.png'"
+                    <img src="data:image/jpg;base64,<c:out value='${book.cover64}' />"
+                         onerror="this.src='images/empty.png'"
                          alt="Cover for book"
                          style="width: 350px; height: 350px; position: relative; z-index: 1; margin-right: 40px; margin-top: 68px; box-shadow: 0px 0px 0px 6px #b38484, 0px 0px 0px 25px #fff">
                 </div>
@@ -43,7 +43,8 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="title">Title*</label>
-                        <input type="text" class="form-control" id="title" value="<c:out value='${book.title}' />" name="title">
+                        <input type="text" class="form-control" id="title" value="<c:out value='${book.title}' />"
+                               name="title">
                     </div>
                 </div>
             </div>
@@ -51,7 +52,8 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Author(-s)*</label>
-                        <input type="text" class="form-control" id="author" value="<c:out value='${book.author}' />" name="author"
+                        <input type="text" class="form-control" id="author" value="<c:out value='${book.author}' />"
+                               name="author"
                         >
                     </div>
                 </div>
@@ -60,7 +62,8 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Genre(-s)*</label>
-                        <input type="text" class="form-control" id="genre" value="<c:out value='${book.genre}' />" name="genre" readonly>
+                        <input type="text" class="form-control" id="genre" value="<c:out value='${book.genre}' />"
+                               name="genre" readonly>
                     </div>
                 </div>
             </div>
@@ -68,7 +71,8 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Publisher*</label>
-                        <input type="text" class="form-control" id="publisher" value="<c:out value='${book.publisher}' />"
+                        <input type="text" class="form-control" id="publisher"
+                               value="<c:out value='${book.publisher}' />"
                                name="publisher"
                         >
                     </div>
@@ -78,7 +82,8 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Publish Date*</label>
-                        <input type="text" class="form-control" id="date" value="<c:out value='${book.date}' />" name="date">
+                        <input type="text" class="form-control" id="date" value="<c:out value='${book.date}' />"
+                               name="date">
                     </div>
                 </div>
             </div>
@@ -86,13 +91,15 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>Page count*</label>
-                        <input type="text" class="form-control" id="pages" value="<c:out value='${book.pages}' />" name="pages">
+                        <input type="text" class="form-control" id="pages" value="<c:out value='${book.pages}' />"
+                               name="pages">
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label>ISBN*</label>
-                        <input type="text" class="form-control" id="isbn" value="<c:out value='${book.isbn}' />" name="isbn">
+                        <input type="text" class="form-control" id="isbn" value="<c:out value='${book.isbn}' />"
+                               name="isbn">
                     </div>
                 </div>
             </div>
@@ -107,7 +114,8 @@
                 <div class="form-group col-md-2">
                     <div class="form-group">
                         <label>Total Amount*</label>
-                        <input type="text" class="form-control" id="amount" value="<c:out value='${book.amount}' />" name="total_amount"
+                        <input type="text" class="form-control" id="amount" value="<c:out value='${book.amount}' />"
+                               name="total_amount"
                         >
 
                     </div>
@@ -264,14 +272,14 @@
         </div>
     </div>
     <div id="saveDiscard" style="text-align: center">
-        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Save</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Discard</button>
     </div>
 </article>
 <nav id="mainNav">
     <h3 id="navTitle">Navigation</h3>
     <div id="inner-grid-nav">
-        <button type="button" class="btn btn-dark" onclick="location.href='/'">Main Page</button>
+        <button type="button" class="btn btn-dark" onclick="location.href='/list'">Main Page</button>
         <button type="button" class="btn btn-dark">Readers Page</button>
     </div>
 </nav>
