@@ -23,11 +23,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Optional;
 
 public class ControllerServlet extends HttpServlet {
     private final PostgresBookService service = new PostgresBookService();
-    //private Book book;
     private String UPLOAD_DIRECTORY;
 
     private static byte[] readFileToByteArray(File file) {
@@ -73,7 +72,6 @@ public class ControllerServlet extends HttpServlet {
         String filename;
         String st_1 = "Available";
         String st_2 = "Unavailable";
-        int id = 0;
         int id1 = 1;
 
         try {
@@ -178,14 +176,20 @@ public class ControllerServlet extends HttpServlet {
             req.setAttribute("book", book);
             //req.getRequestDispatcher("index.jsp").forward(req, resp);
         } catch (DBException e) {
-            Logger.getGlobal().info("Cannot add book in the database");
+            req.setAttribute("exception", e);
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
 
     private void listBook(HttpServletRequest request, HttpServletResponse response)
             throws DBException, IOException, ServletException {
-        request.setAttribute("listBook", service.listBooks());
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        if (!service.listBooks().isEmpty()) {
+            request.setAttribute("listBook", service.listBooks());
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else {
+            request.setAttribute("exception", new DBException(new NullPointerException()));
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 
     private void deleteBook(HttpServletRequest request, HttpServletResponse response)
@@ -195,24 +199,31 @@ public class ControllerServlet extends HttpServlet {
         Book book = new Book(id);
         try {
             service.deleteBook(book);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } catch (DBException e) {
-            e.printStackTrace();
+            request.setAttribute("exception", new DBException(new NullPointerException()));
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Book existingBook = null;
+        Optional<Book> existingBook = null;
+
         try {
-            existingBook = service.getBook(id);
+            if (existingBook.isPresent()) {
+                existingBook = service.getBook(id);
+                request.setAttribute("book", existingBook.get());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("views/full_book_page.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                request.setAttribute("exception", new DBException(new NullPointerException()));
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         } catch (DBException e) {
             e.printStackTrace();
         }
-        request.setAttribute("book", existingBook);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/full_book_page.jsp");
-        dispatcher.forward(request, response);
     }
 
     private void updateBook(HttpServletRequest request, HttpServletResponse response)

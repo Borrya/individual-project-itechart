@@ -52,7 +52,7 @@ public class PostgresBookService implements BookService {
             if (connection != null) {
                 connection.setAutoCommit(false);
             } else {
-                throw new NullPointerException();
+                throw new DBException(new NullPointerException());
             }
             BookDao dao = new BookDao(connection);
             dao.insertBook(book);
@@ -71,7 +71,7 @@ public class PostgresBookService implements BookService {
             if (connection != null) {
                 connection.setAutoCommit(false);
             } else {
-                throw new NullPointerException();
+                throw new DBException(new NullPointerException());
             }
             BookDao dao = new BookDao(connection);
             dao.deleteBook(book);
@@ -90,7 +90,7 @@ public class PostgresBookService implements BookService {
             if (connection != null) {
                 connection.setAutoCommit(false);
             } else {
-                throw new NullPointerException();
+                throw new DBException(new NullPointerException());
             }
             BookDao dao = new BookDao(connection);
             dao.updateBook(book);
@@ -110,7 +110,7 @@ public class PostgresBookService implements BookService {
             if (connection != null) {
                 connection.setAutoCommit(false);
             } else {
-                throw new NullPointerException();
+                throw new DBException(new NullPointerException());
             }
             BookDao dao = new BookDao(connection);
             listBook = dao.listAllBooks();
@@ -124,21 +124,21 @@ public class PostgresBookService implements BookService {
     }
 
     @Override
-    public Book getBook(int id) throws DBException {
-        Book book = null;
+    public Optional<Book> getBook(int id) throws DBException {
+        Optional<Book> book = null;
         try {
             Connection connection = getPostgresConnection();
             if (connection != null) {
                 connection.setAutoCommit(false);
             } else {
-                throw new NullPointerException();
+                throw new DBException(new NullPointerException());
             }
             BookDao dao = new BookDao(connection);
-            book = dao.getBook(id);
+            book = Optional.of(dao.getBook(id));
             connection.commit();
         } catch (SQLException e) {
             Logger.getGlobal().info("Connection for getting book failed.");
         }
-        return Optional.ofNullable(book).orElse(new Book());
+        return book;
     }
 }

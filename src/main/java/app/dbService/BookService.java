@@ -3,6 +3,7 @@ package app.dbService;
 import app.dbService.entity.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
 
@@ -14,5 +15,5 @@ public interface BookService {
 
     List<Book> listBooks() throws DBException;
 
-    Book getBook(int id) throws DBException;
+    Optional<Book> getBook(int id) throws DBException;
 }
