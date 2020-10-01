@@ -10,6 +10,8 @@ import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ControllerServlet extends HttpServlet {
+    private final static Logger log = LoggerFactory.getLogger(PostgresBookService.class);
     private final PostgresBookService service = new PostgresBookService();
     private String UPLOAD_DIRECTORY;
 
@@ -34,7 +37,7 @@ public class ControllerServlet extends HttpServlet {
         try (FileInputStream fis = new FileInputStream(file)) {
             fis.read(bArray);
         } catch (IOException ioExp) {
-            ioExp.printStackTrace();
+            log.error("Couldn't read file to byte array.");
         }
         return bArray;
     }
@@ -86,7 +89,7 @@ public class ControllerServlet extends HttpServlet {
                         try {
                             items = upload.parseRequest(new ServletRequestContext(req));
                         } catch (FileUploadException e) {
-                            e.printStackTrace();
+                            log.error("Couldn't upload file.");
                         }
                         Iterator itr = items.iterator();
                         while (itr.hasNext()) {
@@ -166,7 +169,7 @@ public class ControllerServlet extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         } catch (DBException e) {
-            e.printStackTrace();
+            log.error("Something went wrong.");
         }
     }
 
@@ -222,7 +225,7 @@ public class ControllerServlet extends HttpServlet {
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (DBException e) {
-            e.printStackTrace();
+            log.error("Something went wrong in book editing.");
         }
     }
 

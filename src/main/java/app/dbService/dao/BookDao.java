@@ -23,17 +23,17 @@ public class BookDao {
     }
 
     public List<Book> listAllBooks() throws SQLException {
-        final List<Book> listBook = new ArrayList<>();
+        List<Book> listBook = new ArrayList<>();
 
         String sql = "SELECT * FROM book";
-        ResultHandler resultHandler = resultSet -> {
+        ResultHandler<List<Book>> resultHandler = resultSet -> {
             resultSet.next();
             Book book = new Book(resultSet.getInt(1), resultSet.getString(3), resultSet.getString(4), resultSet.getString(7), resultSet.getInt(11));
             listBook.add(book);
             return listBook;
         };
 
-        return (List<Book>) executor.execQuery(sql, resultHandler);
+        return executor.execQuery(sql, resultHandler);
     }
 
     public void deleteBook(Book book) throws SQLException {

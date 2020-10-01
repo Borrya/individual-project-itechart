@@ -3,6 +3,8 @@ package app.dbService;
 import app.dbService.dao.BookDao;
 import app.dbService.entity.Book;
 import org.h2.jdbcx.JdbcDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -11,9 +13,9 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 public class PostgresBookService implements BookService {
+    private final static Logger log = LoggerFactory.getLogger(PostgresBookService.class);
 
     public PostgresBookService() {
     }
@@ -34,7 +36,7 @@ public class PostgresBookService implements BookService {
             connection = DriverManager.getConnection(url, name, pass);
             return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            Logger.getGlobal().info("Connection failed.");
+            log.error("Connection failed.");
         }
         return null;
     }
@@ -60,7 +62,7 @@ public class PostgresBookService implements BookService {
             connection.setAutoCommit(true);
             disconnect(connection);
         } catch (SQLException e) {
-            Logger.getGlobal().info("Connection for adding failed.");
+            log.error("Connection for adding failed.");
         }
     }
 
@@ -78,7 +80,7 @@ public class PostgresBookService implements BookService {
             connection.commit();
             disconnect(connection);
         } catch (SQLException e) {
-            Logger.getGlobal().info("Connection for deleting failed.");
+            log.error("Connection for deleting failed.");
         }
     }
 
@@ -97,7 +99,7 @@ public class PostgresBookService implements BookService {
             connection.commit();
             disconnect(connection);
         } catch (SQLException e) {
-            Logger.getGlobal().info("Connection for updating failed.");
+            log.error("Connection for updating failed.");
         }
 
     }
@@ -118,7 +120,7 @@ public class PostgresBookService implements BookService {
             disconnect(connection);
             return listBook;
         } catch (SQLException e) {
-            Logger.getGlobal().info("Connection for list of books failed.");
+            log.error("Connection for list of books failed.");
         }
         return Collections.emptyList();
     }
@@ -137,7 +139,7 @@ public class PostgresBookService implements BookService {
             book = Optional.of(dao.getBook(id));
             connection.commit();
         } catch (SQLException e) {
-            Logger.getGlobal().info("Connection for getting book failed.");
+            log.error("Connection for getting book failed.");
         }
         return book;
     }
