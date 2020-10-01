@@ -1,0 +1,77 @@
+body {
+    display: grid;
+    grid-template-areas: "header header header" "nav article article" "footer footer footer";
+    grid-template-rows: 90px 1fr 10px;
+    grid-template-columns: 20% 1fr 10%;
+    grid-gap: 10px;
+    height: 100vh;
+    margin: 0;
+}
+
+article, nav {
+    padding: 20px;
+    background: #a7846e;
+}
+
+h2 {
+    font-family: Calibri;
+    text-align: center;
+}
+
+#navTitle {
+    text-align: center;
+}
+
+#recordsList {
+    text-align: left;
+}
+
+header {
+    padding: 30px;
+}
+
+form {
+    background-color: #e6cece7d;
+    padding: 20px;
+}
+
+footer {
+    padding: 20px;
+}
+
+#pageHeader {
+    grid-area: header;
+    text-align: center;
+    background: #dfb798 url(../images/library2.jpg);
+}
+
+#pageFooter {
+    grid-area: footer;
+    text-align: center;
+    background: #dfb798 url(../images/library2.jpg);
+}
+
+#mainArticle {
+    grid-area: article;
+}
+
+#mainNav {
+    grid-area: nav;
+}
+
+#inner-grid-nav {
+    display: grid;
+    grid-template-rows: 50px 50px 50px;
+    grid-row-gap: 50px;
+    margin-top: 5px;
+    padding: 20px;
+}
+
+#inner-grid-nav > div {
+    background: black;
+    padding: 10px;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Choose";
+}
