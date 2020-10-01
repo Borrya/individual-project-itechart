@@ -1,8 +1,8 @@
-package app.servlets;
+package com.borrya.servlets;
 
-import app.dbService.DBException;
-import app.dbService.PostgresBookService;
-import app.dbService.entity.Book;
+import com.borrya.dbService.DBException;
+import com.borrya.dbService.PostgresBookService;
+import com.borrya.dbService.entity.Book;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
@@ -89,7 +89,7 @@ public class ControllerServlet extends HttpServlet {
                         try {
                             items = upload.parseRequest(new ServletRequestContext(req));
                         } catch (FileUploadException e) {
-                            log.error("Couldn't upload file.");
+                            log.error("Couldn't parse request.", e);
                         }
                         Iterator itr = items.iterator();
                         while (itr.hasNext()) {
@@ -143,7 +143,7 @@ public class ControllerServlet extends HttpServlet {
                                     String base64Image = Base64.encodeBase64String(bArray);
                                     book.setCover64(base64Image);
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    log.error("Couldn't upload file.", e);
                                 }
                             }
                         }
@@ -169,7 +169,7 @@ public class ControllerServlet extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         } catch (DBException e) {
-            log.error("Something went wrong.");
+            log.error("Something went wrong.", e);
         }
     }
 
@@ -225,7 +225,7 @@ public class ControllerServlet extends HttpServlet {
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (DBException e) {
-            log.error("Something went wrong in book editing.");
+            log.error("Something went wrong in book editing.", e);
         }
     }
 

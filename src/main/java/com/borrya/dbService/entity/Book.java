@@ -1,4 +1,4 @@
-package app.dbService.entity;
+package com.borrya.dbService.entity;
 
 public class Book {
     private int id;

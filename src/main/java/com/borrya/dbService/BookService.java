@@ -1,6 +1,6 @@
-package app.dbService;
+package com.borrya.dbService;
 
-import app.dbService.entity.Book;
+import com.borrya.dbService.entity.Book;
 
 import java.util.List;
 import java.util.Optional;

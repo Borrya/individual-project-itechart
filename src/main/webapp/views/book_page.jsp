@@ -20,7 +20,7 @@
 <header id="pageHeader"></header>
 <article id="mainArticle">
     <h2>Add book info</h2>
-    <jsp:useBean id="book" scope="request" type="app.dbService.entity.Book"/>
+    <jsp:useBean id="book" scope="request" type="com.borrya.dbService.entity.Book"/>
 
     <form action="/add" method="post" enctype="multipart/form-data" class="needs-validation" novalidate="">
         <c:if test="${book != null}">

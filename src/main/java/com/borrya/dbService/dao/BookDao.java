@@ -1,8 +1,8 @@
-package app.dbService.dao;
+package com.borrya.dbService.dao;
 
-import app.dbService.entity.Book;
-import app.dbService.executor.Executor;
-import app.dbService.executor.ResultHandler;
+import com.borrya.dbService.entity.Book;
+import com.borrya.dbService.executor.Executor;
+import com.borrya.dbService.executor.ResultHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;

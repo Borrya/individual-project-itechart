@@ -1,4 +1,4 @@
-package app.dbService.executor;
+package com.borrya.dbService.executor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

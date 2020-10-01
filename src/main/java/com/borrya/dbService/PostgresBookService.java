@@ -1,7 +1,7 @@
-package app.dbService;
+package com.borrya.dbService;
 
-import app.dbService.dao.BookDao;
-import app.dbService.entity.Book;
+import com.borrya.dbService.dao.BookDao;
+import com.borrya.dbService.entity.Book;
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class PostgresBookService implements BookService {
             connection = DriverManager.getConnection(url, name, pass);
             return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            log.error("Connection failed.");
+            log.error("Connection failed.", e);
         }
         return null;
     }
@@ -62,7 +62,7 @@ public class PostgresBookService implements BookService {
             connection.setAutoCommit(true);
             disconnect(connection);
         } catch (SQLException e) {
-            log.error("Connection for adding failed.");
+            log.error("Connection for adding failed.", e);
         }
     }
 
@@ -80,7 +80,7 @@ public class PostgresBookService implements BookService {
             connection.commit();
             disconnect(connection);
         } catch (SQLException e) {
-            log.error("Connection for deleting failed.");
+            log.error("Connection for deleting failed.", e);
         }
     }
 
@@ -99,7 +99,7 @@ public class PostgresBookService implements BookService {
             connection.commit();
             disconnect(connection);
         } catch (SQLException e) {
-            log.error("Connection for updating failed.");
+            log.error("Connection for updating failed.", e);
         }
 
     }
@@ -120,7 +120,7 @@ public class PostgresBookService implements BookService {
             disconnect(connection);
             return listBook;
         } catch (SQLException e) {
-            log.error("Connection for list of books failed.");
+            log.error("Connection for list of books failed.", e);
         }
         return Collections.emptyList();
     }
@@ -139,7 +139,7 @@ public class PostgresBookService implements BookService {
             book = Optional.of(dao.getBook(id));
             connection.commit();
         } catch (SQLException e) {
-            log.error("Connection for getting book failed.");
+            log.error("Connection for getting book failed.", e);
         }
         return book;
     }
