@@ -21,16 +21,12 @@
 <header id="pageHeader"></header>
 <article id="mainArticle">
     <h3>Book Info</h3>
-    <c:if test="${book != null}">
-    <form id="bookForm" action="/update" method="post" enctype="multipart/form-data">
+    <form id="bookForm" action="/edit" method="post" enctype="multipart/form-data">
         <button type="button" class="btn btn-light" style="margin-bottom: 11px"
                 onclick="location.href='/update'">Edit
         </button>
-        </c:if>
         <fieldset disabled>
-            <c:if test="${book != null}">
-                <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
-            </c:if>
+            <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
             <div class="custom-file">
                 <div class="text-right">
                     <img src="data:image/jpg;base64,<c:out value='${book.cover64}' />"
@@ -272,14 +268,14 @@
         </div>
     </div>
     <div id="saveDiscard" style="text-align: center">
-        <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Save</button>
-        <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Discard</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
     </div>
 </article>
 <nav id="mainNav">
     <h3 id="navTitle">Navigation</h3>
     <div id="inner-grid-nav">
-        <button type="button" class="btn btn-dark" onclick="location.href='/list'">Main Page</button>
+        <button type="button" class="btn btn-dark" onclick="location.href='/'">Main Page</button>
         <button type="button" class="btn btn-dark">Readers Page</button>
     </div>
 </nav>

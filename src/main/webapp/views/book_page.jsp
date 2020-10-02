@@ -20,12 +20,9 @@
 <header id="pageHeader"></header>
 <article id="mainArticle">
     <h2>Add book info</h2>
-    <jsp:useBean id="book" scope="request" type="com.borrya.dbService.entity.Book"/>
-
+    <jsp:useBean id="book" scope="request" type="com.borrya.dbService.entity.Book" beanName="book"/>
     <form action="/add" method="post" enctype="multipart/form-data" class="needs-validation" novalidate="">
-        <c:if test="${book != null}">
-            <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
-        </c:if>
+        <input type="hidden" name="id" value="${book.id}">
         <div class="custom-file">
             <label for="cover">Cover</label>
             <input type="file" class="custom-file-input" id="cover" name="cover" accept="image/jpeg, image/png">
@@ -153,7 +150,7 @@
         </div>
         <div id="saveDiscard" style="text-align: center">
             <button type="submit" class="btn btn-secondary" name="submit">Save</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Discard</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='/'">Discard</button>
         </div>
     </form>
     <script>
@@ -177,7 +174,7 @@
 <nav id="mainNav">
     <h3 id="navTitle">Navigation</h3>
     <div id="inner-grid-nav">
-        <button type="button" class="btn btn-dark" onclick="location.href='/list'">Main Page</button>
+        <button type="button" class="btn btn-dark" onclick="location.href='/'">Main Page</button>
         <button type="button" class="btn btn-dark">Readers Page</button>
     </div>
 </nav>

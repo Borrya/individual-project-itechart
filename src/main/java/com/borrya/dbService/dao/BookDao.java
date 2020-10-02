@@ -53,7 +53,7 @@ public class BookDao {
 
         ResultHandler<Book> resultHandler = resultSet -> {
             resultSet.next();
-            return new Book(resultSet.getInt(1), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6),
+            return new Book(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6),
                     resultSet.getString(7), resultSet.getLong(8), resultSet.getInt(9), resultSet.getString(10), resultSet.getInt(11));
         };
 

@@ -39,6 +39,16 @@ public class Book {
         this.description = description;
     }
 
+    public Book(int id, String cover, String title, String author, String genre, String publisher, String date, long isbn, int pages, String description, int amount) {
+        this(id, title, author, date, amount);
+        this.cover64 = cover;
+        this.genre = genre;
+        this.publisher = publisher;
+        this.pages = pages;
+        this.isbn = isbn;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

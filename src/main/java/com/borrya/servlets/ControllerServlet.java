@@ -23,12 +23,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 public class ControllerServlet extends HttpServlet {
     private final static Logger log = LoggerFactory.getLogger(PostgresBookService.class);
+    private static List<Book> listBook = new ArrayList<>();
     private final PostgresBookService service = new PostgresBookService();
     private String UPLOAD_DIRECTORY;
 
@@ -75,6 +77,7 @@ public class ControllerServlet extends HttpServlet {
         String filename;
         String st_1 = "Available";
         String st_2 = "Unavailable";
+        int id = 0;
         int id1 = 1;
 
         try {
@@ -98,6 +101,9 @@ public class ControllerServlet extends HttpServlet {
                                 String name = item.getFieldName();
                                 String value = item.getString();
                                 switch (name) {
+                                    case "id":
+                                        book.setId(Integer.parseInt(value));
+                                        break;
                                     case "title":
                                         book.setTitle(value);
                                         break;
@@ -125,7 +131,6 @@ public class ControllerServlet extends HttpServlet {
                                     case "total_amount":
                                         book.setAmount(Integer.parseInt(value));
                                         break;
-
                                 }
                             } else {
                                 filename = new File(item.getName()).getName();
@@ -151,7 +156,7 @@ public class ControllerServlet extends HttpServlet {
                     book.setStatus(st_1);
 
                     insertBook(req, resp, book);
-                    listBook(req, resp);
+                    //listBook(req, resp);
                     break;
                 case "/remove":
                     deleteBook(req, resp);
@@ -163,6 +168,7 @@ public class ControllerServlet extends HttpServlet {
                     updateBook(req, resp);
                     break;
                 case "/list":
+                default:
                     listBook(req, resp);
                     break;
             }
@@ -176,8 +182,10 @@ public class ControllerServlet extends HttpServlet {
     private void insertBook(HttpServletRequest req, HttpServletResponse resp, Book book) throws SQLException, IOException, ServletException {
         try {
             service.addBook(book);
-            req.setAttribute("book", book);
-            //req.getRequestDispatcher("index.jsp").forward(req, resp);
+            //req.setAttribute("book", book);
+            listBook.add(book);
+            req.setAttribute("listBook", listBook);
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
         } catch (DBException e) {
             req.setAttribute("exception", e);
             req.getRequestDispatcher("error.jsp").forward(req, resp);
@@ -187,7 +195,7 @@ public class ControllerServlet extends HttpServlet {
     private void listBook(HttpServletRequest request, HttpServletResponse response)
             throws DBException, IOException, ServletException {
         if (!service.listBooks().isEmpty()) {
-            request.setAttribute("listBook", service.listBooks());
+            request.setAttribute("listBook", listBook);
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
             request.setAttribute("exception", new DBException(new NullPointerException()));
@@ -217,8 +225,8 @@ public class ControllerServlet extends HttpServlet {
         try {
             if (existingBook.isPresent()) {
                 existingBook = service.getBook(id);
-                request.setAttribute("book", existingBook.get());
                 RequestDispatcher dispatcher = request.getRequestDispatcher("views/full_book_page.jsp");
+                request.setAttribute("book", existingBook.get());
                 dispatcher.forward(request, response);
             } else {
                 request.setAttribute("exception", new DBException(new NullPointerException()));
