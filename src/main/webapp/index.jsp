@@ -37,7 +37,6 @@
         </tr>
         </thead>
         <tbody id="tableBody">
-
         <c:forEach var="book" items="${listBook}">
             <tr>
                 <th scope="row"><c:out value='${book.id}'/></th>

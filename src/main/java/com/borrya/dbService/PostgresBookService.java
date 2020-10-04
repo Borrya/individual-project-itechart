@@ -22,7 +22,6 @@ public class PostgresBookService implements BookService {
 
     public static Connection getPostgresConnection() {
         try {
-            Connection connection = null;
             DriverManager.registerDriver((Driver) Class.forName("org.postgresql.Driver").newInstance());
             String url = "jdbc:postgresql://localhost:5432/books";
             String name = "postgres";
@@ -33,7 +32,7 @@ public class PostgresBookService implements BookService {
             ds.setUser(name);
             ds.setPassword(pass);
 
-            connection = DriverManager.getConnection(url, name, pass);
+            Connection connection = DriverManager.getConnection(url, name, pass);
             return connection;
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             log.error("Connection failed.", e);
@@ -121,8 +120,8 @@ public class PostgresBookService implements BookService {
             return listBook;
         } catch (SQLException e) {
             log.error("Connection for list of books failed.", e);
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
     }
 
     @Override

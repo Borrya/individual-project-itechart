@@ -23,15 +23,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 public class ControllerServlet extends HttpServlet {
     private final static Logger log = LoggerFactory.getLogger(PostgresBookService.class);
-    private static List<Book> listBook = new ArrayList<>();
-    private final PostgresBookService service = new PostgresBookService();
+    private PostgresBookService service;
     private String UPLOAD_DIRECTORY;
 
     private static byte[] readFileToByteArray(File file) {
@@ -47,27 +45,13 @@ public class ControllerServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init();
-        //book = new Book();
+        service = new PostgresBookService();
         UPLOAD_DIRECTORY = "D:\\Book Library. ItechArt\\src\\main\\webapp\\images";
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getServletPath();
-        Book book = new Book();
-        req.setAttribute("book", book);
-        switch (action) {
-            case "/edit":
-                req.getRequestDispatcher("views/full_book_page.jsp").forward(req, resp);
-                break;
-            case "/add":
-                req.getRequestDispatcher("views/book_page.jsp").forward(req, resp);
-                break;
-            case "/remove":
-            default:
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
-                break;
-        }
+        doPost(req, resp);
     }
 
     @Override
@@ -75,15 +59,26 @@ public class ControllerServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String action = req.getServletPath();
         String filename;
+        String cover64 = "";
+        String title = "";
+        String publisher = "";
+        String author = "";
+        String genre = "";
+        String date = "";
+        String description = "";
+        long isbn = 0;
+        int pages = 0;
+        int total_amount = 0;
         String st_1 = "Available";
         String st_2 = "Unavailable";
-        int id = 0;
         int id1 = 1;
 
         try {
             switch (action) {
                 case "/add":
-                    Book book = new Book();
+                    req.getRequestDispatcher("views/book_page.jsp").forward(req, resp);
+                    break;
+                case "/insert":
                     boolean isMultipart = ServletFileUpload.isMultipartContent(req);
                     if (isMultipart) {
                         FileItemFactory factory = new DiskFileItemFactory();
@@ -101,35 +96,32 @@ public class ControllerServlet extends HttpServlet {
                                 String name = item.getFieldName();
                                 String value = item.getString();
                                 switch (name) {
-                                    case "id":
-                                        book.setId(Integer.parseInt(value));
-                                        break;
                                     case "title":
-                                        book.setTitle(value);
+                                        title = value;
                                         break;
                                     case "author":
-                                        book.setAuthor(value);
+                                        author = value;
                                         break;
                                     case "genre":
-                                        book.setGenre(value);
+                                        genre = value;
                                         break;
                                     case "publisher":
-                                        book.setPublisher(value);
+                                        publisher = value;
                                         break;
                                     case "date":
-                                        book.setDate(value);
+                                        date = value;
                                         break;
                                     case "description":
-                                        book.setDescription(value);
+                                        description = value;
                                         break;
                                     case "pages":
-                                        book.setPages(Integer.parseInt(value));
+                                        pages = Integer.parseInt(value);
                                         break;
                                     case "isbn":
-                                        book.setIsbn(Long.parseLong(value));
+                                        isbn = Long.parseLong(value);
                                         break;
                                     case "total_amount":
-                                        book.setAmount(Integer.parseInt(value));
+                                        total_amount = Integer.parseInt(value);
                                         break;
                                 }
                             } else {
@@ -146,28 +138,25 @@ public class ControllerServlet extends HttpServlet {
                                     item.write(file);
                                     byte[] bArray = readFileToByteArray(file);
                                     String base64Image = Base64.encodeBase64String(bArray);
-                                    book.setCover64(base64Image);
+                                    cover64 = base64Image;
                                 } catch (Exception e) {
                                     log.error("Couldn't upload file.", e);
                                 }
                             }
                         }
                     }
-                    book.setStatus(st_1);
-
+                    Book book = new Book(title, cover64, author, genre, publisher, date, isbn, pages, description, total_amount, st_1);
                     insertBook(req, resp, book);
-                    //listBook(req, resp);
-                    break;
-                case "/remove":
-                    deleteBook(req, resp);
                     break;
                 case "/edit":
                     showEditForm(req, resp);
                     break;
+                case "/remove":
+                    deleteBook(req, resp);
+                    break;
                 case "/update":
                     updateBook(req, resp);
                     break;
-                case "/list":
                 default:
                     listBook(req, resp);
                     break;
@@ -182,10 +171,7 @@ public class ControllerServlet extends HttpServlet {
     private void insertBook(HttpServletRequest req, HttpServletResponse resp, Book book) throws SQLException, IOException, ServletException {
         try {
             service.addBook(book);
-            //req.setAttribute("book", book);
-            listBook.add(book);
-            req.setAttribute("listBook", listBook);
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            resp.sendRedirect("list");
         } catch (DBException e) {
             req.setAttribute("exception", e);
             req.getRequestDispatcher("error.jsp").forward(req, resp);
@@ -194,13 +180,9 @@ public class ControllerServlet extends HttpServlet {
 
     private void listBook(HttpServletRequest request, HttpServletResponse response)
             throws DBException, IOException, ServletException {
-        if (!service.listBooks().isEmpty()) {
-            request.setAttribute("listBook", listBook);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        } else {
-            request.setAttribute("exception", new DBException(new NullPointerException()));
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+        List<Book> listBook = service.listBooks();
+        request.setAttribute("listBook", listBook);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     private void deleteBook(HttpServletRequest request, HttpServletResponse response)
@@ -210,7 +192,7 @@ public class ControllerServlet extends HttpServlet {
         Book book = new Book(id);
         try {
             service.deleteBook(book);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("list").forward(request, response);
         } catch (DBException e) {
             request.setAttribute("exception", new DBException(new NullPointerException()));
             request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -223,15 +205,10 @@ public class ControllerServlet extends HttpServlet {
         Optional<Book> existingBook = null;
 
         try {
-            if (existingBook.isPresent()) {
-                existingBook = service.getBook(id);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("views/full_book_page.jsp");
-                request.setAttribute("book", existingBook.get());
-                dispatcher.forward(request, response);
-            } else {
-                request.setAttribute("exception", new DBException(new NullPointerException()));
-                request.getRequestDispatcher("error.jsp").forward(request, response);
-            }
+            existingBook = service.getBook(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_page.jsp");
+            request.setAttribute("book", existingBook.get());
+            dispatcher.forward(request, response);
         } catch (DBException e) {
             log.error("Something went wrong in book editing.", e);
         }
@@ -252,6 +229,6 @@ public class ControllerServlet extends HttpServlet {
 
         Book book = new Book(id, title, author, genre, publisher, date, isbn, pages, description, amount);
         service.updateBook(book);
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("list");
     }
 }

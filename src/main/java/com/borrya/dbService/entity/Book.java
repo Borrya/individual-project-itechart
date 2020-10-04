@@ -30,6 +30,34 @@ public class Book {
         this.amount = amount;
     }
 
+    public Book(String title, String cover64, String author, String genre, String publisher, String date, long isbn, int pages, String description, int amount, String status) {
+        this.title = title;
+        this.cover64 = cover64;
+        this.author = author;
+        this.date = date;
+        this.amount = amount;
+        this.genre = genre;
+        this.publisher = publisher;
+        this.pages = pages;
+        this.isbn = isbn;
+        this.description = description;
+        this.status = status;
+    }
+
+    public Book(String title, byte[] cover, String author, String genre, String publisher, String date, long isbn, int pages, String description, int amount, String status) {
+        this.title = title;
+        this.cover = cover;
+        this.author = author;
+        this.date = date;
+        this.amount = amount;
+        this.genre = genre;
+        this.publisher = publisher;
+        this.pages = pages;
+        this.isbn = isbn;
+        this.description = description;
+        this.status = status;
+    }
+
     public Book(int id, String title, String author, String genre, String publisher, String date, long isbn, int pages, String description, int amount) {
         this(id, title, author, date, amount);
         this.genre = genre;
