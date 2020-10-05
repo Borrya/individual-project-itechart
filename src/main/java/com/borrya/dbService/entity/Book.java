@@ -67,7 +67,7 @@ public class Book {
         this.description = description;
     }
 
-    public Book(int id, String cover, String title, String author, String genre, String publisher, String date, long isbn, int pages, String description, int amount) {
+    public Book(int id, String cover, String title, String author, String genre, String publisher, String date, long isbn, int pages, String description, int amount, String status) {
         this(id, title, author, date, amount);
         this.cover64 = cover;
         this.genre = genre;
@@ -75,6 +75,7 @@ public class Book {
         this.pages = pages;
         this.isbn = isbn;
         this.description = description;
+        this.status = status;
     }
 
     public int getId() {

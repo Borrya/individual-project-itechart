@@ -29,7 +29,7 @@
     <form action="/insert" method="post" enctype="multipart/form-data" class="needs-validation" novalidate="">
         </c:if>
         <c:if test="${book != null}">
-        <form id="bookForm" action="/update" method="post">
+        <form action="/update" method="post" class="needs-validation" novalidate="">
             </c:if>
             <c:if test="${book != null}">
                 <input type="hidden" name="id" value="${book.id}">
@@ -179,11 +179,20 @@
                         </div>
                     </div>
                 </div>
+                <c:if test="${book != null}">
+                    <div class="form-group col-md-4">
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <input class="form-control" type="text" value="<c:out value='${book.status}' />"
+                                   name="status">
+                        </div>
+                    </div>
+                </c:if>
             </div>
-                <div id="saveDiscard" style="text-align: center">
-                    <button type="submit" class="btn btn-secondary" name="submit">Save</button>
-                    <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Discard</button>
-                </div>
+            <div id="saveDiscard" style="text-align: center">
+                <button type="submit" class="btn btn-secondary" name="submit">Save</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='/list'">Discard</button>
+            </div>
         </form>
         <script>
             (function () {
