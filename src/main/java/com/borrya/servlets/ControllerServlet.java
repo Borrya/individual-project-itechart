@@ -232,16 +232,3 @@ public class ControllerServlet extends HttpServlet {
         response.sendRedirect("list");
     }
 }
-
-/*
- <c:if test="${book != null}">
-                <div class="custom-file">
-                    <div class="text-right">
-                        <img src="data:image/jpg;base64,<c:out value='${book.cover64}' />"
-                             onerror="this.src='images/empty.png'"
-                             alt="Cover for book"
-                             style="width: 350px; height: 350px; position: relative; z-index: 1; margin-right: 40px; margin-top: 68px; box-shadow: 0px 0px 0px 6px #b38484, 0px 0px 0px 25px #fff">
-                    </div>
-                </div>
-            </c:if>
- */
