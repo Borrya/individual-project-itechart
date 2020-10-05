@@ -37,10 +37,9 @@
         </tr>
         </thead>
         <tbody id="tableBody">
-
         <c:forEach var="book" items="${listBook}">
             <tr>
-                <th scope="row"><c:out value='${book.id}'/></th>
+                <th><c:out value='${book.id}'/></th>
                 <td><a style="color: #1d2124"
                        href="${pageContext.request.contextPath}/edit?id=<c:out value='${book.id}'/>">${book.title}
                 </a></td>
