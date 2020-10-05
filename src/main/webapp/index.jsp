@@ -28,7 +28,6 @@
     <table class="table table-hover">
         <thead>
         <tr id="tr1">
-            <th scope="col">#</th>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Publish Date</th>
@@ -39,7 +38,6 @@
         <tbody id="tableBody">
         <c:forEach var="book" items="${listBook}">
             <tr>
-                <th><c:out value='${book.id}'/></th>
                 <td><a style="color: #1d2124"
                        href="${pageContext.request.contextPath}/edit?id=<c:out value='${book.id}'/>">${book.title}
                 </a></td>

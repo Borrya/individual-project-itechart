@@ -27,9 +27,10 @@ public class BookDao {
 
         String sql = "SELECT * FROM book";
         ResultHandler<List<Book>> resultHandler = resultSet -> {
-            resultSet.next();
-            Book book = new Book(resultSet.getInt(1), resultSet.getString(3), resultSet.getString(4), resultSet.getString(7), resultSet.getInt(11));
-            listBook.add(book);
+            while (resultSet.next()) {
+                Book book = new Book(resultSet.getInt(1), resultSet.getString(3), resultSet.getString(4), resultSet.getString(7), resultSet.getInt(11));
+                listBook.add(book);
+            }
             return listBook;
         };
 
